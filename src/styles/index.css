@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bg-main: #07080a;
+    --surface-1: #0f1015;
+    --surface-2: #14151b;
+    --surface-3: #1a1c24;
+    --border-color: rgba(255, 255, 255, 0.08);
+  }
+
+  body {
+    background-color: var(--bg-main);
+    color: #e5e7eb;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  /* Optimize Tamil text rendering */
+  [lang="ta"], .font-tamil {
+    line-height: 1.65;
+    word-break: normal;
+  }
+}
+
+/* Custom sleek scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* Code Syntax Highlighting colors */
+.hl-kw { color: #f472b6; font-weight: 500; } /* Tamil keywords: இறக்குமதி, செயல், நிலையான */
+.hl-fn { color: #60a5fa; } /* Function names */
+.hl-str { color: #34d399; } /* Strings */
+.hl-num { color: #fbbf24; } /* Tamil numerals: $௩௦௦௦, numbers */
+.hl-cm { color: #6b7280; font-style: italic; } /* Comments */
+.hl-op { color: #e5e7eb; } /* Operators */
+.hl-mod { color: #a78bfa; } /* Module paths */
+.hl-prop { color: #93c5fd; } /* Object properties */
+
+/* Subtle grid pattern background */
+.bg-grid-pattern {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
