@@ -1,130 +1,105 @@
 import React from 'react';
 import { useLanguage } from '../../context/LanguageContext';
-import { Terminal, Heart } from 'lucide-react';
 import { GithubIcon } from '../common/Icons';
+import { BrandLogo } from '../common/BrandLogo';
+import { BRAND, LINKS, PROJECT_FACTS } from '../../content/siteData';
 
 export function Footer({ onNavigate }) {
   const { language, t } = useLanguage();
+  const translate = (key, fallback) => t(key, fallback);
+  const label = (value) => (typeof value === 'string' ? value : value?.[language] || value?.en || '');
+
+  const columns = [
+    {
+      title: language === 'ta' ? 'தளம்' : 'Site',
+      links: [
+        { label: translate('nav_home', 'Home'), page: 'home' },
+        { label: translate('nav_about', 'About'), page: 'about' },
+        { label: translate('nav_features', 'Features'), page: 'features' },
+        { label: translate('nav_install', 'Install'), page: 'install' },
+      ],
+    },
+    {
+      title: language === 'ta' ? 'கற்க' : 'Learn',
+      links: [
+        { label: translate('nav_learn', 'Learn'), page: 'learn', id: 'introduction' },
+        { label: translate('nav_language', 'Language'), page: 'language' },
+        { label: translate('nav_examples', 'Examples'), page: 'examples' },
+        { label: translate('nav_ide', 'IDE'), page: 'ide' },
+        { label: translate('nav_future', 'Future'), page: 'future' },
+      ],
+    },
+    {
+      title: language === 'ta' ? 'தொகுப்புகள்' : 'Packages',
+      links: [
+        { label: 'yaazhicode', href: LINKS.npmLanguage, mono: true },
+        { label: 'yaazhicode-ide', href: LINKS.npmIde, mono: true },
+        { label: translate('github', 'GitHub'), href: LINKS.repository },
+        { label: language === 'ta' ? 'பிழை புகார்' : 'Report an issue', href: LINKS.issues },
+      ],
+    },
+  ];
 
   return (
-    <footer className="w-full border-t border-border/80 bg-[#060709] py-14 text-sm text-silver-400">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-10 pb-12 border-b border-border/60">
-          {/* Brand Info */}
-          <div className="md:col-span-2 space-y-4">
+    <footer className="w-full border-t border-line bg-panel py-12 text-sm text-muted">
+      <div className="shell">
+        <div className="grid grid-cols-1 gap-8 pb-10 sm:grid-cols-2 md:grid-cols-4 md:gap-10">
+          <div className="space-y-4 sm:col-span-2 md:col-span-1">
             <div className="flex items-center gap-2.5">
-              <div className="w-7 h-7 rounded-md bg-[#14151b] border border-border flex items-center justify-center">
-                <span className="font-serif text-base font-bold text-white">அ</span>
-              </div>
-              <span className="font-mono text-base font-bold tracking-wider text-white">AKAZHI</span>
+              <BrandLogo className="h-7 w-7" decorative />
+              <span className="font-mono text-base font-bold tracking-tight text-ink">YaazhiCode</span>
             </div>
-            <p className="text-xs text-silver-400 leading-relaxed max-w-sm">
-              {language === 'ta'
-                ? 'உங்கள் மொழியில் நிரலாக்கம். உங்கள் சிந்தனையில் தொழில்நுட்பம். AKAZHI என்பது TamilScript அடிப்படையிலான ஒரு தமிழ்-முதல் Node.js கட்டமைப்பு.'
-                : 'Build technology in Tamil. AKAZHI is a developer-focused, Tamil-first Node.js framework powered by TamilScript.'}
-            </p>
-            <div className="text-[11px] font-mono text-silver-500 pt-1">
-              MIT License • v0.1.0 Architecture • Pure ESM
+            <p className="max-w-sm text-xs leading-relaxed text-muted">{label(BRAND.tagline)}</p>
+            <p className="max-w-sm text-xs leading-relaxed text-faint">{label(BRAND.message)}</p>
+            <div className="font-mono text-[11px] text-faint">
+              {PROJECT_FACTS.languageLicense} {language === 'ta' ? 'மொழி' : 'language'} · {PROJECT_FACTS.ideLicense} IDE · v{PROJECT_FACTS.version}
             </div>
           </div>
 
-          {/* Nav Column 1: Learning */}
-          <div className="space-y-3">
-            <h4 className="text-xs font-mono uppercase tracking-wider text-silver-200 font-semibold">
-              {language === 'ta' ? 'கற்றல்' : 'Learn'}
-            </h4>
-            <ul className="space-y-2 text-xs">
-              <li>
-                <button onClick={() => onNavigate('learn', 'intro-programming')} className="hover:text-white transition-colors">
-                  {language === 'ta' ? 'நிரலாக்க அறிமுகம்' : 'Programming Intro'}
-                </button>
-              </li>
-              <li>
-                <button onClick={() => onNavigate('learn', 'variables')} className="hover:text-white transition-colors">
-                  {language === 'ta' ? 'மாறிகள் & எண்கள்' : 'Variables & Numerals'}
-                </button>
-              </li>
-              <li>
-                <button onClick={() => onNavigate('learn', 'first-server')} className="hover:text-white transition-colors">
-                  {language === 'ta' ? 'முதல் சேவையகம்' : 'First Server'}
-                </button>
-              </li>
-              <li>
-                <button onClick={() => onNavigate('learn', 'rest-apis')} className="hover:text-white transition-colors">
-                  {language === 'ta' ? 'REST API உருவாக்கம்' : 'REST APIs'}
-                </button>
-              </li>
-            </ul>
-          </div>
-
-          {/* Nav Column 2: Documentation */}
-          <div className="space-y-3">
-            <h4 className="text-xs font-mono uppercase tracking-wider text-silver-200 font-semibold">
-              {language === 'ta' ? 'ஆவணங்கள்' : 'Documentation'}
-            </h4>
-            <ul className="space-y-2 text-xs">
-              <li>
-                <button onClick={() => onNavigate('docs', 'what-is-akazhi')} className="hover:text-white transition-colors">
-                  {language === 'ta' ? 'அறிமுகம் & நோக்கம்' : 'What is AKAZHI?'}
-                </button>
-              </li>
-              <li>
-                <button onClick={() => onNavigate('docs', 'http-server')} className="hover:text-white transition-colors">
-                  {language === 'ta' ? 'வலைச்சேவையகம் API' : 'HTTP Server API'}
-                </button>
-              </li>
-              <li>
-                <button onClick={() => onNavigate('docs', 'cli-overview')} className="hover:text-white transition-colors">
-                  {language === 'ta' ? 'கட்டளை வரி (CLI)' : 'CLI Reference'}
-                </button>
-              </li>
-              <li>
-                <button onClick={() => onNavigate('docs', 'graceful-shutdown')} className="hover:text-white transition-colors">
-                  {language === 'ta' ? 'பாதுகாப்பு & நிறுத்தம்' : 'Security & Shutdown'}
-                </button>
-              </li>
-            </ul>
-          </div>
-
-          {/* Nav Column 3: Ecosystem */}
-          <div className="space-y-3">
-            <h4 className="text-xs font-mono uppercase tracking-wider text-silver-200 font-semibold">
-              {language === 'ta' ? 'சுற்றுச்சூழல்' : 'Ecosystem'}
-            </h4>
-            <ul className="space-y-2 text-xs">
-              <li>
-                <button onClick={() => onNavigate('packages', 'node')} className="hover:text-white transition-colors">
-                  @akazhi/node
-                </button>
-              </li>
-              <li>
-                <button onClick={() => onNavigate('packages', 'cli')} className="hover:text-white transition-colors">
-                  @akazhi/cli
-                </button>
-              </li>
-              <li>
-                <button onClick={() => onNavigate('tamilscript')} className="hover:text-white transition-colors">
-                  TamilScript (NPM)
-                </button>
-              </li>
-              <li>
-                <button onClick={() => onNavigate('roadmap')} className="hover:text-white transition-colors">
-                  {language === 'ta' ? 'எதிர்கால செயல்திட்டம்' : 'Roadmap'}
-                </button>
-              </li>
-            </ul>
-          </div>
+          {columns.map((column) => (
+            <div key={column.title} className="space-y-3">
+              <h3 className="font-mono text-xs font-semibold uppercase tracking-wider text-ink">{column.title}</h3>
+              <ul className="space-y-2 text-xs" role="list">
+                {column.links.map((link) => (
+                  <li key={link.label}>
+                    {link.href ? (
+                      <a
+                        href={link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`transition-colors hover:text-accent ${link.mono ? 'font-mono' : ''}`}
+                      >
+                        {link.label}
+                      </a>
+                    ) : (
+                      <button
+                        type="button"
+                        onClick={() => onNavigate?.(link.page, link.id || null)}
+                        className="text-left transition-colors hover:text-accent"
+                      >
+                        {link.label}
+                      </button>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
 
-        {/* Bottom row */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-silver-500">
-          <div>
-            © {new Date().getFullYear()} AKAZHI Framework. {t('footer_built_with', 'Engineered for Tamil speakers, developers, and future software architects.')}
-          </div>
-          <div className="flex items-center gap-4">
-            <span className="font-mono text-[11px] text-silver-400">
-              தமிழ்-முதல் தொழில் நுட்பம்
-            </span>
+        <div className="flex flex-col items-center justify-between gap-4 border-t border-line pt-6 text-xs text-faint sm:flex-row">
+          <p>© {new Date().getFullYear()} YaazhiCode. {language === 'ta' ? 'தமிழில் நிரலாக்கம்.' : 'Programming in Tamil.'}</p>
+          <div className="flex items-center gap-4 font-mono text-[11px]">
+            <span className="font-tamil">{label(BRAND.tagline)}</span>
+            <a
+              href={LINKS.repository}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-accent"
+              aria-label={`${translate('github', 'GitHub')} — ${translate('open_in_new', 'Opens in a new tab')}`}
+            >
+              <GithubIcon className="h-4 w-4" />
+            </a>
           </div>
         </div>
       </div>

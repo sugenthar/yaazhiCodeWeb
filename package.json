@@ -1,7 +1,8 @@
 {
-  "name": "akazhi-web",
+  "name": "yaazhi-web",
   "version": "1.0.0",
-  "description": "Official AKAZHI Framework Website",
+  "private": true,
+  "description": "Official website and documentation for YaazhiCode — a Tamil programming language.",
   "type": "module",
   "scripts": {
     "dev": "vite",

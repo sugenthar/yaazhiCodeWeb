@@ -11,8 +11,21 @@ export function CopyButton({ text, className = '' }) {
       await navigator.clipboard.writeText(text);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
-    } catch (err) {
-      console.error('Failed to copy code: ', err);
+    } catch {
+      const area = document.createElement('textarea');
+      area.value = text;
+      area.style.position = 'fixed';
+      area.style.opacity = '0';
+      document.body.appendChild(area);
+      area.select();
+      try {
+        document.execCommand('copy');
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      } catch {
+        // Clipboard unavailable in this context.
+      }
+      document.body.removeChild(area);
     }
   };
 
@@ -20,19 +33,18 @@ export function CopyButton({ text, className = '' }) {
     <button
       onClick={handleCopy}
       type="button"
-      className={`inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-medium rounded border border-border/80 bg-surface-100 hover:bg-surface-50 text-silver-300 hover:text-white transition-all duration-150 ${className}`}
-      title={t('copy_code', 'Copy')}
-      aria-label="Copy code to clipboard"
+      className={`inline-flex items-center gap-1.5 rounded-md border border-line bg-raised px-2.5 py-1 font-mono text-[11px] text-muted transition-colors hover:border-accent/60 hover:text-accent ${className}`}
+      aria-label={t('copy_code', 'Copy code to clipboard')}
     >
       {copied ? (
         <>
-          <Check className="w-3.5 h-3.5 text-emerald-400" />
-          <span className="text-emerald-400 font-mono text-[11px]">{t('copied', 'Copied!')}</span>
+          <Check className="h-3.5 w-3.5 text-positive" aria-hidden="true" />
+          <span className="text-positive">{t('copied', 'Copied!')}</span>
         </>
       ) : (
         <>
-          <Copy className="w-3.5 h-3.5" />
-          <span className="font-mono text-[11px]">{t('copy_code', 'Copy')}</span>
+          <Copy className="h-3.5 w-3.5" aria-hidden="true" />
+          <span>{t('copy_code', 'Copy')}</span>
         </>
       )}
     </button>

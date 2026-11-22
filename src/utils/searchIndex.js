@@ -1,127 +1,122 @@
-import { docsCategories, docsContent } from '../content/docsData';
-import { tutorials } from '../content/tutorialsData';
-import { packages } from '../content/packagesData';
-import { coreKeywords, extendedKeywords } from '../content/tamilScriptData';
+import { learnCategories, learnContent } from '../content/docsData';
 import { examples } from '../content/examplesData';
-import { roadmapPhases } from '../content/roadmapData';
+import { syntaxExamples } from '../content/languageData';
+import { futurePhases } from '../content/futureData';
+import { CLI_COMMANDS } from '../content/siteData';
+
+const L = (en, ta) => ({ en, ta });
 
 export function getSearchIndex() {
   const index = [];
 
-  // 1. Index Docs
-  docsCategories.forEach(cat => {
-    cat.items.forEach(item => {
-      const doc = docsContent[item.id];
+  learnCategories.forEach(category => {
+    category.items.forEach(item => {
+      const lesson = learnContent[item.id];
       index.push({
-        id: `doc-${item.id}`,
-        type: 'docs',
-        typeLabel: { ta: 'ஆவணம்', en: 'Documentation' },
-        targetPage: 'docs',
+        id: `lesson-${item.id}`,
+        type: 'lesson',
+        typeLabel: L('Lesson', 'பாடம்'),
+        targetPage: 'learn',
         targetId: item.id,
         title: item.title,
-        description: doc?.description || { ta: '', en: '' },
-        keywords: `${item.title.ta} ${item.title.en} ${cat.title.ta} ${cat.title.en} ${item.id}`,
+        description: lesson?.description || L('', ''),
+        keywords: `${item.title.en} ${item.title.ta} ${category.title.en} ${category.title.ta} ${item.id}`,
       });
     });
   });
 
-  // 2. Index Tutorials / Learn
-  tutorials.forEach(tut => {
+  syntaxExamples.forEach(sample => {
     index.push({
-      id: `tut-${tut.id}`,
-      type: 'learn',
-      typeLabel: { ta: 'பாடம்', en: 'Tutorial' },
-      targetPage: 'learn',
-      targetId: tut.id,
-      title: tut.title,
-      description: tut.summary,
-      keywords: `${tut.title.ta} ${tut.title.en} ${tut.id} ${tut.summary.ta} ${tut.summary.en}`,
+      id: `syntax-${sample.id}`,
+      type: 'language',
+      typeLabel: L('Syntax', 'தொடரியல்'),
+      targetPage: 'language',
+      targetId: sample.id,
+      title: sample.title,
+      description: sample.note,
+      keywords: `${sample.title.en} ${sample.title.ta} ${sample.id} yaazhi`,
     });
   });
 
-  // 3. Index Packages
-  packages.forEach(pkg => {
+  examples.forEach(example => {
     index.push({
-      id: `pkg-${pkg.id}`,
-      type: 'packages',
-      typeLabel: { ta: 'தொகுப்பு', en: 'Package' },
-      targetPage: 'packages',
-      targetId: pkg.id,
-      title: { ta: pkg.name, en: pkg.name },
-      description: pkg.summary,
-      keywords: `${pkg.name} ${pkg.id} ${pkg.summary.ta} ${pkg.summary.en} npm`,
-    });
-  });
-
-  // 4. Index TamilScript Keywords
-  [...coreKeywords, ...extendedKeywords].forEach(kw => {
-    index.push({
-      id: `kw-${kw.tamil}`,
-      type: 'tamilscript',
-      typeLabel: { ta: 'திறவுச்சொல்', en: 'Keyword' },
-      targetPage: 'tamilscript',
-      targetId: kw.tamil,
-      title: { ta: `${kw.tamil} (${kw.js})`, en: `${kw.tamil} (${kw.js})` },
-      description: {
-        ta: `JavaScript '${kw.js}' சொல்லுக்கு இணையான தமிழ் திறவுச்சொல்.`,
-        en: `TamilScript keyword mapping to JavaScript '${kw.js}'.`
-      },
-      keywords: `${kw.tamil} ${kw.js} keyword syntax`,
-    });
-  });
-
-  // 5. Index Examples
-  examples.forEach(ex => {
-    index.push({
-      id: `ex-${ex.id}`,
-      type: 'examples',
-      typeLabel: { ta: 'எடுத்துக்காட்டு', en: 'Example' },
+      id: `example-${example.id}`,
+      type: 'example',
+      typeLabel: L('Example', 'எடுத்துக்காட்டு'),
       targetPage: 'examples',
-      targetId: ex.id,
-      title: ex.title,
-      description: ex.summary,
-      keywords: `${ex.title.ta} ${ex.title.en} ${ex.tags?.join(' ')} ${ex.id}`,
+      targetId: example.id,
+      title: example.title,
+      description: example.summary,
+      keywords: `${example.title.en} ${example.title.ta} ${example.id} ${example.category}`,
     });
   });
 
-  // 6. Index Roadmap
-  roadmapPhases.forEach(phase => {
-    phase.items.forEach((item, idx) => {
-      index.push({
-        id: `road-${phase.id}-${idx}`,
-        type: 'roadmap',
-        typeLabel: { ta: 'செயல்திட்டம்', en: 'Roadmap' },
-        targetPage: 'roadmap',
-        targetId: phase.id,
-        title: item.title,
-        description: item.desc,
-        keywords: `${item.title.ta} ${item.title.en} ${phase.title.ta} ${phase.title.en}`,
-      });
+  CLI_COMMANDS.forEach(command => {
+    index.push({
+      id: `cli-${command.command}`,
+      type: 'cli',
+      typeLabel: L('Command', 'கட்டளை'),
+      targetPage: 'install',
+      targetId: null,
+      title: L(command.command, command.command),
+      description: L(command.en, command.ta),
+      keywords: `${command.command} cli command yaazhicode`,
+    });
+  });
+
+  futurePhases.forEach(phase => {
+    index.push({
+      id: `future-${phase.id}`,
+      type: 'future',
+      typeLabel: L('Future possibility', 'எதிர்கால சாத்தியம்'),
+      targetPage: 'future',
+      targetId: phase.id,
+      title: phase.title,
+      description: phase.description,
+      keywords: `${phase.title.en} ${phase.title.ta} ${phase.id} future`,
+    });
+  });
+
+  [
+    ['about', L('About YaazhiCode', 'YaazhiCode பற்றி'), L('Goals and current release', 'இலக்குகளும் தற்போதைய வெளியீடும்')],
+    ['features', L('Features', 'அம்சங்கள்'), L('What YaazhiCode offers today', 'இன்று YaazhiCode வழங்குவது')],
+    ['install', L('Install', 'நிறுவுதல்'), L('Command line and IDE setup', 'கட்டளை வரி மற்றும் IDE அமைப்பு')],
+    ['learn', L('Learn', 'கற்க'), L('Fourteen guided lessons', 'பதினான்கு வழிகாட்டும் பாடங்கள்')],
+    ['language', L('Language reference', 'மொழி குறிப்பு'), L('Keywords, syntax, and modules', 'திறவுச்சொற்கள், தொடரியல், தொகுதிகள்')],
+    ['examples', L('Examples', 'எடுத்துக்காட்டுகள்'), L('Verified .yaazhi programs', 'சரிபார்க்கப்பட்ட .yaazhi நிரல்கள்')],
+    ['ide', L('Official IDE', 'அதிகாரப்பூர்வ IDE'), L('Projects, editor, output, and troubleshooting', 'திட்டங்கள், எடிட்டர், வெளியீடு, சிக்கல் தீர்வு')],
+    ['future', L('Future', 'எதிர்காலம்'), L('Available features and future possibilities', 'கிடைக்கும் அம்சங்களும் எதிர்கால சாத்தியங்களும்')],
+  ].forEach(([id, title, description]) => {
+    index.push({
+      id: `page-${id}`,
+      type: 'page',
+      typeLabel: L('Page', 'பக்கம்'),
+      targetPage: id,
+      targetId: null,
+      title,
+      description,
+      keywords: `${title.en} ${title.ta} ${id}`,
     });
   });
 
   return index;
 }
 
-export function searchContent(query, language = 'ta') {
-  if (!query || query.trim().length === 0) return [];
+export function searchContent(query, language = 'en') {
+  const q = query.trim().toLocaleLowerCase();
+  if (!q) return [];
+  const terms = q.split(/\s+/);
 
-  const lowerQuery = query.toLowerCase().trim();
-  const searchIndex = getSearchIndex();
-
-  return searchIndex.filter(item => {
-    const titleTa = (item.title.ta || '').toLowerCase();
-    const titleEn = (item.title.en || '').toLowerCase();
-    const descTa = (item.description.ta || '').toLowerCase();
-    const descEn = (item.description.en || '').toLowerCase();
-    const kw = (item.keywords || '').toLowerCase();
-
-    return (
-      titleTa.includes(lowerQuery) ||
-      titleEn.includes(lowerQuery) ||
-      descTa.includes(lowerQuery) ||
-      descEn.includes(lowerQuery) ||
-      kw.includes(lowerQuery)
-    );
-  }).slice(0, 8); // top 8 results
+  return getSearchIndex()
+    .map(item => {
+      const title = item.title?.[language] || item.title?.en || '';
+      const description = item.description?.[language] || item.description?.en || '';
+      const haystack = `${title} ${description} ${item.keywords || ''}`.toLocaleLowerCase();
+      if (!terms.every(term => haystack.includes(term))) return null;
+      const score = title.toLocaleLowerCase().includes(q) ? 2 : haystack.includes(q) ? 1 : 0;
+      return { ...item, score };
+    })
+    .filter(Boolean)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 12);
 }

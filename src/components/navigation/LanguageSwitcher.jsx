@@ -1,26 +1,37 @@
 import React from 'react';
 import { useLanguage } from '../../context/LanguageContext';
-import { Languages } from 'lucide-react';
 
 export function LanguageSwitcher({ className = '' }) {
-  const { language, setLanguage } = useLanguage();
-
-  const toggleLanguage = () => {
-    setLanguage(language === 'ta' ? 'en' : 'ta');
-  };
+  const { language, setLanguage, t } = useLanguage();
 
   return (
-    <button
-      onClick={toggleLanguage}
-      type="button"
-      className={`inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-medium rounded-md border border-border bg-surface-200/80 hover:bg-surface-100 hover:border-silver-500/40 text-silver-300 hover:text-white transition-all duration-150 ${className}`}
-      title={language === 'ta' ? 'Switch to English' : 'தமிழுக்கு மாறவும்'}
-      aria-label="Language Switcher"
+    <div
+      className={`inline-flex items-center rounded-md border border-line bg-panel p-0.5 text-xs ${className}`}
+      role="group"
+      aria-label={t('language_label', 'Language')}
     >
-      <Languages className="w-3.5 h-3.5 text-silver-400" />
-      <span className="font-mono uppercase text-[11px] font-semibold text-silver-200">
-        {language === 'ta' ? 'தமிழ்' : 'EN'}
-      </span>
-    </button>
+      <button
+        type="button"
+        onClick={() => setLanguage('ta')}
+        className={`rounded px-2 py-1 font-tamil text-[10px] transition-colors ${
+          language === 'ta' ? 'bg-accent font-semibold text-accent-ink' : 'text-muted hover:text-ink'
+        }`}
+        title="தமிழுக்கு மாற்றவும் (Tamil)"
+        aria-pressed={language === 'ta'}
+      >
+        தமிழ்
+      </button>
+      <button
+        type="button"
+        onClick={() => setLanguage('en')}
+        className={`rounded px-2 py-1 font-mono transition-colors ${
+          language === 'en' ? 'bg-accent font-semibold text-accent-ink' : 'text-muted hover:text-ink'
+        }`}
+        title="Switch to English"
+        aria-pressed={language === 'en'}
+      >
+        EN
+      </button>
+    </div>
   );
 }

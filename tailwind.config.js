@@ -1,48 +1,47 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-  ],
+  content: ['./index.html', './src/**/*.{js,jsx}'],
   darkMode: 'class',
   theme: {
     extend: {
       colors: {
-        background: '#07080a',
-        surface: {
-          50: '#1c1e24',
-          100: '#15161b',
-          200: '#111216',
-          300: '#0d0e12',
-          400: '#090a0d',
-        },
-        border: {
-          subtle: 'rgba(255, 255, 255, 0.07)',
-          DEFAULT: 'rgba(255, 255, 255, 0.12)',
-          hover: 'rgba(255, 255, 255, 0.22)',
-        },
-        silver: {
-          50: '#f9fafb',
-          100: '#f3f4f6',
-          200: '#e5e7eb',
-          300: '#d1d5db',
-          400: '#9ca3af',
-          500: '#6b7280',
-          600: '#4b5563',
-          700: '#374151',
-          800: '#1f2937',
-        },
-        accent: {
-          tamil: '#f59e0b', // subtle warm amber highlight if needed for key badges
-          silver: '#e2e8f0',
-        }
+        app: 'rgb(var(--c-app) / <alpha-value>)',
+        panel: 'rgb(var(--c-panel) / <alpha-value>)',
+        raised: 'rgb(var(--c-raised) / <alpha-value>)',
+        line: 'rgb(var(--c-line) / <alpha-value>)',
+        ink: 'rgb(var(--c-ink) / <alpha-value>)',
+        muted: 'rgb(var(--c-muted) / <alpha-value>)',
+        faint: 'rgb(var(--c-faint) / <alpha-value>)',
+        accent: 'rgb(var(--c-accent) / <alpha-value>)',
+        'accent-ink': 'rgb(var(--c-accent-ink) / <alpha-value>)',
+        'accent-soft': 'rgb(var(--c-accent-soft) / <alpha-value>)',
+        positive: 'rgb(var(--c-positive) / <alpha-value>)',
+        caution: 'rgb(var(--c-caution) / <alpha-value>)',
       },
       fontFamily: {
-        sans: ['Inter', 'Noto Sans Tamil', 'sans-serif'],
-        mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
-        tamil: ['Noto Sans Tamil', 'Mukta Malar', 'sans-serif'],
+        sans: ['Inter', 'Noto Tamil VF', 'Noto Sans Tamil', 'system-ui', 'sans-serif'],
+        tamil: ['Noto Tamil VF', 'Noto Sans Tamil', 'Nirmala UI', 'Latha', 'system-ui', 'sans-serif'],
+        mono: ['JetBrains Mono', 'Cascadia Code', 'Consolas', 'monospace'],
+      },
+      maxWidth: {
+        content: '80rem',
+        prose: '48rem',
+      },
+      keyframes: {
+        'fade-up': {
+          from: { opacity: '0', transform: 'translateY(10px)' },
+          to: { opacity: '1', transform: 'translateY(0)' },
+        },
+        'fade-in': {
+          from: { opacity: '0' },
+          to: { opacity: '1' },
+        },
+      },
+      animation: {
+        'fade-up': 'fade-up 0.5s ease-out both',
+        'fade-in': 'fade-in 0.3s ease-out both',
       },
     },
   },
   plugins: [],
-}
+};

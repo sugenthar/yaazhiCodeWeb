@@ -2,56 +2,164 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'Noto Tamil VF';
+  src: url('/fonts/NotoSansTamil-Variable.ttf') format('truetype-variations');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 @layer base {
   :root {
-    --bg-main: #07080a;
-    --surface-1: #0f1015;
-    --surface-2: #14151b;
-    --surface-3: #1a1c24;
-    --border-color: rgba(255, 255, 255, 0.08);
+    --c-app: 255 255 255;
+    --c-panel: 248 249 251;
+    --c-raised: 255 255 255;
+    --c-line: 222 226 233;
+    --c-ink: 20 23 30;
+    --c-muted: 76 84 98;
+    --c-faint: 100 108 122;
+    --c-accent: 176 72 24;
+    --c-accent-ink: 255 255 255;
+    --c-accent-soft: 255 237 227;
+    --c-positive: 21 128 61;
+    --c-caution: 180 83 9;
+
+    --code-keyword: 190 24 93;
+    --code-builtin: 30 102 193;
+    --code-method: 8 122 137;
+    --code-string: 22 133 90;
+    --code-number: 161 88 7;
+    --code-comment: 100 108 122;
+    --code-punct: 76 84 98;
+    --code-text: 35 40 50;
+  }
+
+  .dark {
+    --c-app: 10 11 15;
+    --c-panel: 17 19 25;
+    --c-raised: 23 26 34;
+    --c-line: 47 52 64;
+    --c-ink: 243 245 249;
+    --c-muted: 165 173 188;
+    --c-faint: 122 131 147;
+    --c-accent: 251 146 60;
+    --c-accent-ink: 28 14 5;
+    --c-accent-soft: 61 32 18;
+    --c-positive: 74 222 128;
+    --c-caution: 251 191 36;
+
+    --code-keyword: 244 114 182;
+    --code-builtin: 125 211 252;
+    --code-method: 103 232 249;
+    --code-string: 110 231 183;
+    --code-number: 252 211 77;
+    --code-comment: 122 131 147;
+    --code-punct: 165 173 188;
+    --code-text: 226 232 240;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   body {
-    background-color: var(--bg-main);
-    color: #e5e7eb;
-    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    @apply bg-app text-ink font-sans antialiased;
+    min-height: 100vh;
+    overflow-x: hidden;
   }
 
-  /* Optimize Tamil text rendering */
-  [lang="ta"], .font-tamil {
+  ::selection {
+    background: rgb(var(--c-accent) / 0.28);
+    color: rgb(var(--c-ink));
+  }
+
+  :focus-visible {
+    outline: 2px solid rgb(var(--c-accent));
+    outline-offset: 2px;
+  }
+
+  /* Avoid a brief foreground/background mismatch while theme tokens swap. */
+  html.theme-switching *,
+  html.theme-switching *::before,
+  html.theme-switching *::after {
+    transition: none !important;
+  }
+
+  code,
+  pre,
+  kbd,
+  samp,
+  .font-mono {
+    font-family: 'JetBrains Mono', 'Cascadia Code', Consolas, monospace;
+    letter-spacing: 0;
+  }
+
+  /* Tamil typography: correct shaping, no artificial letter spacing. */
+  html.lang-ta,
+  html.lang-ta body,
+  .tamil-text {
+    font-family: 'Noto Tamil VF', 'Noto Sans Tamil', 'Nirmala UI', Latha, system-ui, sans-serif;
     line-height: 1.65;
+    letter-spacing: 0;
     word-break: normal;
   }
+
+  html.lang-ta :is(h1, h2, h3, h4, h5, h6) {
+    line-height: 1.32;
+    letter-spacing: 0;
+  }
+
+  html.lang-ta :is(p, li, span, div, button, a) {
+    overflow-wrap: break-word;
+  }
+
+  /* Native Tamil numerals inside code keep their own glyph shapes. */
+  .font-mono .tamil-numeral {
+    font-family: 'Noto Tamil VF', 'Noto Sans Tamil', monospace;
+  }
 }
 
-/* Custom sleek scrollbar */
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+@layer components {
+  .shell {
+    @apply mx-auto w-full max-w-content px-4 sm:px-6 lg:px-8;
+  }
+
+  .panel {
+    @apply rounded-xl border border-line bg-panel;
+  }
+
+  .subtle-grid {
+    background-image: radial-gradient(rgb(var(--c-faint) / 0.22) 1px, transparent 1px);
+    background-size: 26px 26px;
+  }
+
+  .code-keyword { color: rgb(var(--code-keyword)); }
+  .code-builtin { color: rgb(var(--code-builtin)); }
+  .code-method { color: rgb(var(--code-method)); }
+  .code-string { color: rgb(var(--code-string)); }
+  .code-number { color: rgb(var(--code-number)); }
+  .code-comment { color: rgb(var(--code-comment)); }
+  .code-punct { color: rgb(var(--code-punct)); }
+  .code-text { color: rgb(var(--code-text)); }
 }
-::-webkit-scrollbar-track {
-  background: transparent;
-}
+
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.12);
+  background: rgb(var(--c-faint) / 0.35);
   border-radius: 9999px;
 }
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.25);
-}
+::-webkit-scrollbar-thumb:hover { background: rgb(var(--c-faint) / 0.6); }
 
-/* Code Syntax Highlighting colors */
-.hl-kw { color: #f472b6; font-weight: 500; } /* Tamil keywords: இறக்குமதி, செயல், நிலையான */
-.hl-fn { color: #60a5fa; } /* Function names */
-.hl-str { color: #34d399; } /* Strings */
-.hl-num { color: #fbbf24; } /* Tamil numerals: $௩௦௦௦, numbers */
-.hl-cm { color: #6b7280; font-style: italic; } /* Comments */
-.hl-op { color: #e5e7eb; } /* Operators */
-.hl-mod { color: #a78bfa; } /* Module paths */
-.hl-prop { color: #93c5fd; } /* Object properties */
-
-/* Subtle grid pattern background */
-.bg-grid-pattern {
-  background-image: radial-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px);
-  background-size: 24px 24px;
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

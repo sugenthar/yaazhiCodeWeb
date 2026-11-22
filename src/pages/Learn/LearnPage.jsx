@@ -1,173 +1,100 @@
-import React, { useState, useEffect } from 'react';
-import { useLanguage } from '../../context/LanguageContext';
-import { tutorials } from '../../content/tutorialsData';
+import React from 'react';
+import { useLanguage, pick } from '../../context/LanguageContext';
 import { CodeBlock } from '../../components/code/CodeBlock';
 import { Breadcrumb } from '../../components/navigation/Breadcrumb';
-import { BookOpen, CheckCircle, ChevronRight, ArrowLeft, ArrowRight, Sparkles } from 'lucide-react';
+import { DocumentationSidebar } from '../../components/documentation/DocumentationSidebar';
+import { TableOfContents } from '../../components/documentation/TableOfContents';
+import { DocPager } from '../../components/documentation/DocPager';
+import { StatusPill } from '../../components/common/Ui';
+import { learnCategories, learnContent, allLessons } from '../../content/docsData';
 
-export function LearnPage({ initialTutorialId, onNavigate }) {
+export function LearnPage({ initialLessonId, onNavigate }) {
   const { language, t } = useLanguage();
-  const [activeTutorialId, setActiveTutorialId] = useState(
-    initialTutorialId || tutorials[0].id
-  );
+  const activeLessonId = learnContent[initialLessonId] ? initialLessonId : allLessons[0].id;
+  const lesson = learnContent[activeLessonId];
+  const idx = allLessons.findIndex(item => item.id === activeLessonId);
+  const prevLesson = idx > 0 ? allLessons[idx - 1] : null;
+  const nextLesson = idx < allLessons.length - 1 ? allLessons[idx + 1] : null;
 
-  useEffect(() => {
-    if (initialTutorialId) {
-      setActiveTutorialId(initialTutorialId);
-    }
-  }, [initialTutorialId]);
-
-  const currentIndex = tutorials.findIndex(tut => tut.id === activeTutorialId);
-  const activeTutorial = tutorials[currentIndex] || tutorials[0];
-  const prevTutorial = currentIndex > 0 ? tutorials[currentIndex - 1] : null;
-  const nextTutorial = currentIndex < tutorials.length - 1 ? tutorials[currentIndex + 1] : null;
+  const selectLesson = (id) => onNavigate('learn', id);
 
   return (
-    <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 py-8">
+    <div className="shell py-10">
       <Breadcrumb
         items={[
-          { label: t('nav_learn', 'Learn'), action: () => {} },
-          { label: activeTutorial.title[language] || activeTutorial.title.ta }
+          { label: t('nav_learn', 'Learn'), page: 'learn' },
+          { label: pick(lesson.title, language) },
         ]}
         onNavigate={onNavigate}
       />
 
-      <div className="flex flex-col lg:flex-row gap-8 items-start">
-        {/* Left Lesson Navigation Sidebar */}
-        <aside className="w-full lg:w-72 flex-shrink-0 lg:sticky lg:top-20 lg:h-[calc(100vh-6rem)] lg:overflow-y-auto pb-8">
-          <div className="p-4 rounded-xl border border-border bg-[#0d0e14] space-y-4">
-            <div className="flex items-center gap-2 pb-2 border-b border-border/60">
-              <BookOpen className="w-4 h-4 text-silver-300" />
-              <h2 className="text-xs font-mono font-semibold uppercase tracking-wider text-white">
-                {language === 'ta' ? 'பாடத்திட்டம்' : 'Tutorial Curriculum'}
-              </h2>
-            </div>
+      <div className="flex flex-col gap-10 lg:flex-row">
+        <DocumentationSidebar
+          categories={learnCategories}
+          activeDocId={activeLessonId}
+          onSelectDoc={selectLesson}
+        />
 
-            <nav className="space-y-1">
-              {tutorials.map((tut, idx) => {
-                const isActive = tut.id === activeTutorial.id;
-                return (
-                  <button
-                    key={tut.id}
-                    onClick={() => setActiveTutorialId(tut.id)}
-                    className={`w-full flex items-center justify-between p-2.5 rounded-lg text-left text-xs font-medium transition-colors ${
-                      isActive
-                        ? 'bg-surface-100 text-white border border-border font-semibold'
-                        : 'text-silver-400 hover:text-silver-200 hover:bg-surface-200/50'
-                    }`}
-                  >
-                    <span className="truncate pr-2">
-                      {tut.title[language] || tut.title.ta}
-                    </span>
-                    {isActive ? (
-                      <ChevronRight className="w-3.5 h-3.5 text-white flex-shrink-0" />
-                    ) : (
-                      <span className="text-[10px] font-mono text-silver-600 select-none">
-                        {idx + 1}
-                      </span>
-                    )}
-                  </button>
-                );
-              })}
-            </nav>
-          </div>
-        </aside>
-
-        {/* Main Lesson Content Area */}
-        <main className="flex-1 min-w-0 max-w-4xl space-y-8">
-          {/* Header */}
-          <div className="space-y-3 pb-6 border-b border-border/60">
-            <div className="flex items-center gap-2">
-              <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-surface-100 border border-border text-silver-400">
-                Lesson {currentIndex + 1} of {tutorials.length}
-              </span>
+        <article className="min-w-0 flex-1">
+          <header className="border-b border-line pb-6">
+            <div className="flex flex-wrap items-center gap-3">
+              <h1 className="text-3xl font-bold tracking-tight text-ink">{pick(lesson.title, language)}</h1>
+              {lesson.status && <StatusPill status={lesson.status} />}
             </div>
-            <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-white">
-              {activeTutorial.title[language] || activeTutorial.title.ta}
-            </h1>
-            <p className="text-sm text-silver-400 leading-relaxed">
-              {activeTutorial.summary[language] || activeTutorial.summary.ta}
+            <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted sm:text-base">
+              {pick(lesson.description, language)}
             </p>
+          </header>
+
+          <div className="mt-8 space-y-10">
+            {lesson.sections.map((section, secIdx) => {
+              const heading = pick(section.heading, language);
+              const body = pick(section.content, language);
+              return (
+                <section key={secIdx} id={`sec-${secIdx}`} className="scroll-mt-24">
+                  <h2 className="text-xl font-semibold tracking-tight text-ink">{heading}</h2>
+                  {body && <p className="mt-3 text-sm leading-relaxed text-muted">{body}</p>}
+
+                  {section.bullets && (
+                    <ul className="mt-4 space-y-2" role="list">
+                      {section.bullets.map((bullet, bIdx) => (
+                        <li key={bIdx} className="flex gap-2.5 text-sm text-muted">
+                          <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" aria-hidden="true" />
+                          <span>{pick(bullet, language)}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+
+                  {section.code && (
+                    <CodeBlock
+                      code={section.code}
+                      language={section.language || 'tamil'}
+                      filename={section.filename}
+                    />
+                  )}
+
+                  {section.supporting?.map((file) => (
+                    <div key={file.filename} className="mt-3">
+                      <p className="mb-1 font-mono text-[11px] text-faint">{file.filename}</p>
+                      <CodeBlock code={file.code} language="tamil" filename={file.filename} />
+                    </div>
+                  ))}
+                </section>
+              );
+            })}
           </div>
 
-          {/* 1. Explanation */}
-          <section className="space-y-3">
-            <h2 className="text-base font-semibold text-white flex items-center gap-2 font-mono">
-              <span className="text-silver-500">#</span>
-              <span>{language === 'ta' ? 'விளக்கம்' : 'Concept Explanation'}</span>
-            </h2>
-            <div className="p-4 rounded-xl border border-border/80 bg-[#0c0d12] text-sm text-silver-300 leading-relaxed">
-              {activeTutorial.explanation[language] || activeTutorial.explanation.ta}
-            </div>
-          </section>
-
-          {/* 2. TamilScript Example Code */}
-          <section className="space-y-3">
-            <h2 className="text-base font-semibold text-white flex items-center gap-2 font-mono">
-              <span className="text-silver-500">#</span>
-              <span>{language === 'ta' ? 'தமிழ் எடுத்துக்காட்டுக் குறியீடு' : 'TamilScript Code Example'}</span>
-            </h2>
-            <CodeBlock
-              code={activeTutorial.code}
-              language="tamil"
-              filename="example.tamil"
-              showLineNumbers={true}
-            />
-          </section>
-
-          {/* 3. Explanation of the Example */}
-          <section className="space-y-3">
-            <h2 className="text-base font-semibold text-white flex items-center gap-2 font-mono">
-              <span className="text-silver-500">#</span>
-              <span>{language === 'ta' ? 'குறியீட்டு விளக்கம்' : 'Code Breakdown'}</span>
-            </h2>
-            <p className="text-sm text-silver-300 leading-relaxed">
-              {activeTutorial.codeExplanation[language] || activeTutorial.codeExplanation.ta}
-            </p>
-          </section>
-
-          {/* 4. Expected Output */}
-          <section className="space-y-3">
-            <h2 className="text-base font-semibold text-white flex items-center gap-2 font-mono">
-              <span className="text-silver-500">#</span>
-              <span>{language === 'ta' ? 'எதிர்பார்க்கப்படும் வெளியீடு' : 'Expected Output'}</span>
-            </h2>
-            <div className="rounded-lg border border-border/80 bg-[#0a0b0e] p-4 font-mono text-xs text-emerald-300 whitespace-pre overflow-x-auto">
-              {activeTutorial.output}
-            </div>
-          </section>
-
-          {/* Navigation Controls: Previous / Next Step */}
-          <div className="pt-8 border-t border-border/80 flex items-center justify-between gap-4">
-            {prevTutorial ? (
-              <button
-                onClick={() => setActiveTutorialId(prevTutorial.id)}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-border hover:bg-surface-100 text-xs font-medium text-silver-300 hover:text-white transition-colors"
-              >
-                <ArrowLeft className="w-3.5 h-3.5" />
-                <span>{language === 'ta' ? 'முந்தைய பாடம்' : 'Previous Lesson'}</span>
-              </button>
-            ) : <div />}
-
-            {nextTutorial ? (
-              <button
-                onClick={() => setActiveTutorialId(nextTutorial.id)}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-white text-black text-xs font-semibold hover:bg-silver-200 transition-colors ml-auto"
-              >
-                <span>{language === 'ta' ? 'அடுத்த பாடம்' : 'Next Lesson'}</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </button>
-            ) : (
-              <button
-                onClick={() => onNavigate('docs')}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-white text-black text-xs font-semibold hover:bg-silver-200 transition-colors ml-auto"
-              >
-                <span>{language === 'ta' ? 'ஆவணங்களை வாசிக்க' : 'Explore Documentation'}</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </button>
-            )}
+          <div className="mt-10 rounded-xl border border-line bg-panel p-5 text-sm text-muted">
+            {language === 'ta'
+              ? 'இந்தப் பாடத்தின் குறியீடு 0.1.0 YaazhiCode கட்டளை வரியால் இயக்கி சரிபார்க்கப்பட்டது.'
+              : 'The code in this lesson was run and verified with the 0.1.0 YaazhiCode command line.'}
           </div>
-        </main>
+
+          <DocPager prevDoc={prevLesson} nextDoc={nextLesson} onSelectDoc={selectLesson} />
+        </article>
+
+        <TableOfContents sections={lesson.sections.map(section => ({ heading: section.heading }))} />
       </div>
     </div>
   );
