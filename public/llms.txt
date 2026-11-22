@@ -1,0 +1,71 @@
+# YaazhiCode — Tamil Programming Language
+> Official LLM & AI Agent Reference for YaazhiCode (v0.1.0)
+> Website: https://yaazhi-code-web.vercel.app/
+> GitHub: https://github.com/sugenthar/yaazhiCode
+> npm Package: https://www.npmjs.com/package/yaazhicode
+> Execution API: https://yaazhi-code-web.vercel.app/api/execute
+
+## Overview
+YaazhiCode is an independent, general-purpose programming language designed with native Tamil syntax. It features a custom lexer, recursive-descent parser, semantic analyzer, tree-walking interpreter, module loader, and standard library.
+
+## Mandatory Rules for AI Code Generation
+When generating YaazhiCode programs, you MUST follow these non-negotiable rules:
+
+1. **IDENTIFIERS MUST BE IN TAMIL (OR _ / $):**
+   - Variable, function, and class names must use Tamil script (e.g. `மாறி பெயர் = "தமிழ்";`).
+   - NEVER use Latin/English letters (like `i`, `x`, `count`, `result`) as identifiers. This causes `YAAZHICODE_UNEXPECTED_CHARACTER`.
+
+2. **NUMERALS MUST USE TAMIL DIGITS PREFIXED WITH $:**
+   - Raw ASCII digits (0-9) are forbidden as numeric literals in code.
+   - You MUST use Tamil numeral glyphs prefixed with `$`:
+     - $௦ = 0, $௧ = 1, $௨ = 2, $௩ = 3, $௪ = 4
+     - $௫ = 5, $௬ = 6, $௭ = 7, $௮ = 8, $௯ = 9
+     - Example: `$௧௦` = 10, `$௨௫` = 25, `$௧௦௦` = 100, `$௩.௧௪` = 3.14.
+   - ASCII digits are only allowed inside string literals (`"2026"`) or comments.
+
+3. **CORE KEYWORDS:**
+   - Variables: `மாறி` (let), `நிலையான` (const), `மாற்றி` (mutable counter).
+   - Functions: `செயல்` (function), `கொடு` (return).
+   - Loops: `ஒவ்வொரு` (for loop / for-each), `இருக்கும்வரை` (while loop), `நிறுத்து` (break), `தொடரு` (continue).
+   - Conditions: `என்றால்` (if), `இல்லை` (else), `தேர்ந்தெடு` (switch), `நிலை` (case), `இயல்புநிலை` (default).
+   - Collections: `உள்ளே` (in/of).
+   - Classes: `வகுப்பு` (class), `உருவாக்கு` (constructor), `இது` (this), `புதிய` (new), `மரபுரிமை` (extends), `நிலையான` / `நிலையியல்` (static).
+   - Errors: `முயற்சி` (try), `பிடி` (catch), `இறுதியாக` (finally), `வீசு` (throw).
+   - Modules: `இறக்குமதி` (import), `ஏற்றுமதி` (export), `இருந்து` (from).
+   - Async: `ஒத்திசைவற்ற` (async), `காத்திரு` (await).
+   - Boolean / Null: `உண்மை` (true), `பொய்` (false), `வெற்று` (null / undefined).
+
+4. **CORE STANDARD FUNCTIONS:**
+   - `அச்சிடு(...)` — Print to standard output.
+   - `உரையாக்கு(...)` — Convert a value or number to string representation.
+   - `வடிவமை("{}", ...)` — Format string template.
+   - `சேர்(பட்டியல், மதிப்பு)` — Push item to array.
+   - `வரைபடம்(பட்டியல், செயல்)` — Map over array.
+   - `வடிகட்டு(பட்டியல், செயல்)` — Filter array.
+   - `இணை(பட்டியல், பிரிப்பான்)` — Join array with delimiter.
+   - `நீளம்(மதிப்பு)` — Length of string or array.
+
+## Canonical Example
+```yaazhi
+// Hello World and loop in YaazhiCode
+நிலையான வாழ்த்து = "வணக்கம், உலகம்!";
+அச்சிடு(வாழ்த்து);
+
+ஒவ்வொரு (மாறி எண் = $௧; எண் <= $௩; எண் += $௧) {
+  அச்சிடு("சுழற்சி எண்: " + உரையாக்கு(எண்));
+}
+
+செயல் கூட்டு(முதல், இரண்டாவது) {
+  கொடு முதல் + இரண்டாவது;
+}
+
+நிலையான விடை = கூட்டு($௧௦, $௨௦);
+அச்சிடு("விடை: " + உரையாக்கு(விடை));
+```
+
+## Available Resources
+- Full LLM Specification: https://yaazhi-code-web.vercel.app/llms-full.txt
+- Machine-Readable JSON Spec: https://yaazhi-code-web.vercel.app/yaazhicode-spec.json
+- AI Coding Instructions Guide: https://yaazhi-code-web.vercel.app/AI_CODING_GUIDE.md
+- Online Playground: https://yaazhi-code-web.vercel.app/playground
+- Public Execution API: POST https://yaazhi-code-web.vercel.app/api/execute

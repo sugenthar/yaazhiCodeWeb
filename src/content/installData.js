@@ -67,7 +67,7 @@ export const ideSteps = [
     n: '02',
     title: L('Open the IDE', 'IDE-ஐத் திற'),
     body: L('It opens at a local address. Use --no-open to print the address instead.', 'இது உள்ளூர் முகவரியில் திறக்கும். முகவரியை மட்டும் காண --no-open பயன்படுத்தவும்.'),
-    code: 'yaazhicode-ide\nyaazhicode-ide --no-open\nyaazhicode-ide "D:\\Projects\\My Tamil Project" --port 5174',
+    code: 'yaazhicode-ide\nyaazhicode-ide --no-open\nyaazhicode-ide "./my-tamil-project" --port 5174',
   },
   {
     n: '03',

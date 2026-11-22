@@ -13,7 +13,7 @@ import {
   troubleshooting,
 } from '../../content/installData';
 import { CLI_COMMANDS, PROJECT_FACTS } from '../../content/siteData';
-import { Check, X, AlertCircle, Terminal, Monitor } from 'lucide-react';
+import { Check, X, AlertCircle, Terminal, Monitor, Play, Cpu, ArrowRight } from 'lucide-react';
 
 export function InstallPage({ onNavigate }) {
   const { language, t } = useLanguage();
@@ -31,6 +31,63 @@ export function InstallPage({ onNavigate }) {
 
       <div className="shell py-8 sm:py-12 lg:py-16">
         <Breadcrumb items={[{ label: t('nav_install', 'Install') }]} onNavigate={onNavigate} />
+
+        {/* Quick Launch & AI Callouts */}
+        <div className="my-6 grid gap-4 sm:grid-cols-2">
+          <div className="flex flex-col justify-between rounded-xl border border-accent/30 bg-accent/5 p-4 sm:p-5">
+            <div>
+              <div className="flex items-center gap-2 text-accent">
+                <Play className="h-4 w-4 fill-current" />
+                <span className="font-mono text-xs font-semibold uppercase tracking-wider">
+                  {language === 'ta' ? 'நிறுவல் தேவையில்லை' : 'Zero Install Needed'}
+                </span>
+              </div>
+              <h3 className="mt-2 text-sm sm:text-base font-semibold text-ink">
+                {language === 'ta' ? 'உலாவியில் உடனே பரிசோதிக்கலாம்' : 'Try in the Online Playground'}
+              </h3>
+              <p className="mt-1 text-xs text-muted leading-relaxed">
+                {language === 'ta'
+                  ? 'கணினியில் எதையும் நிறுவத் தேவையின்றி, உலாவி வழியே உண்மையான YaazhiCode நிரல்களை உடனே இயக்கலாம்.'
+                  : 'Run real YaazhiCode programs live directly in your browser with full output and diagnostics.'}
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={() => onNavigate('playground')}
+              className="mt-4 inline-flex items-center gap-1.5 font-mono text-xs font-semibold text-accent hover:underline"
+            >
+              {language === 'ta' ? 'சோதனைக்களத்தைத் திறக்க' : 'Launch Online Playground'} <ArrowRight className="h-3.5 w-3.5" />
+            </button>
+          </div>
+
+          <div className="flex flex-col justify-between rounded-xl border border-line bg-panel p-4 sm:p-5">
+            <div>
+              <div className="flex items-center gap-2 text-muted">
+                <Cpu className="h-4 w-4 text-accent" />
+                <span className="font-mono text-xs font-semibold uppercase tracking-wider">
+                  {language === 'ta' ? 'AI முகவர்கள்' : 'AI Coding Agents'}
+                </span>
+              </div>
+              <h3 className="mt-2 text-sm sm:text-base font-semibold text-ink">
+                {language === 'ta' ? 'AI வழிகாட்டி & இயந்திரக் குறிப்புகள்' : 'AI Coding Guide & Specs'}
+              </h3>
+              <p className="mt-1 text-xs text-muted leading-relaxed">
+                {language === 'ta'
+                  ? 'Copilot, Claude, ChatGPT, Gemini போன்றவற்றுக்கு அதிகாரப்பூர்வ விதிமுறைகள் மற்றும் llms.txt.'
+                  : 'System prompts, grammar rules, and llms.txt standard files to instruct AI models.'}
+              </p>
+            </div>
+            <div className="mt-4 flex items-center gap-3 font-mono text-xs">
+              <a href="/AI_CODING_GUIDE.md" target="_blank" rel="noopener noreferrer" className="font-semibold text-accent hover:underline">
+                AI_CODING_GUIDE.md
+              </a>
+              <span className="text-line">|</span>
+              <a href="/llms.txt" target="_blank" rel="noopener noreferrer" className="font-semibold text-accent hover:underline">
+                llms.txt
+              </a>
+            </div>
+          </div>
+        </div>
 
         <div className="mb-6 sm:mb-10 rounded-xl border border-caution/30 bg-caution/5 p-3 sm:p-4 text-xs sm:text-sm text-muted">
           <p className="flex items-start gap-2">

@@ -49,6 +49,7 @@ export const NAV_ITEMS = [
   { id: 'learn', key: 'nav_learn' },
   { id: 'language', key: 'nav_language' },
   { id: 'examples', key: 'nav_examples' },
+  { id: 'playground', key: 'nav_playground' },
   { id: 'ide', key: 'nav_ide' },
   { id: 'future', key: 'nav_future' },
 ];

@@ -12,6 +12,7 @@ export const PAGES = [
   'learn',
   'language',
   'examples',
+  'playground',
   'ide',
   'future',
 ];

@@ -1,0 +1,254 @@
+# YaazhiCode Complete Language Specification & Reference for AI Coding Agents
+Version: 0.1.0
+Official Repository: https://github.com/sugenthar/yaazhiCode
+Official Website: https://yaazhi-code-web.vercel.app/
+npm Package: yaazhicode@0.1.0 (bin: yaazhicode)
+IDE Package: yaazhicode-ide@0.1.0 (bin: yaazhicode-ide)
+Public Execution API: POST https://yaazhi-code-web.vercel.app/api/execute
+
+================================================================================
+SECTION 1: THE FOUR GOLDEN RULES FOR AI AGENTS GENERATING YAAZHICODE
+================================================================================
+
+1. IDENTIFIERS MUST USE TAMIL CHARACTERS:
+   Variable names, function names, class names, method names, and parameter names
+   MUST NOT contain English/Latin ASCII letters (a-z, A-Z).
+   Allowed identifier characters: Tamil unicode characters (U+0B80 to U+0BFF),
+   underscore (_), and dollar sign ($).
+   Valid:
+     மாறி பெயர் = "கார்த்திக்";
+     செயல் கூட்டு(அ, ஆ) { கொடு அ + ஆ; }
+   INVALID (will fail lexer with YAAZHICODE_UNEXPECTED_CHARACTER):
+     let name = "Karthik";  // 'let', 'name' invalid
+     மாறி x = $௧௦;          // 'x' is English letter!
+
+2. NUMERALS MUST USE TAMIL DIGITS WITH A '$' PREFIX:
+   Numeric literals in code MUST NOT use ASCII digits (0-9).
+   You MUST write Tamil numeral glyphs prefixed with `$`:
+     $௦ = 0
+     $௧ = 1
+     $௨ = 2
+     $௩ = 3
+     $௪ = 4
+     $௫ = 5
+     $௬ = 6
+     $௭ = 7
+     $௮ = 8
+     $௯ = 9
+   Multi-digit and decimal examples:
+     $௧௦ = 10
+     $௨௫ = 25
+     $௧௦௦ = 100
+     $௩.௧௪ = 3.14
+     -$௫ = -5
+   Note: ASCII digits are ONLY valid inside string literals (e.g. "port: 3000") or comments.
+
+3. VARIABLE DECLARATION KEYWORDS:
+   - `மாறி` (let/var): Standard mutable variable.
+     மாறி எண்ணிக்கை = $௦;
+     எண்ணிக்கை += $௧;
+   - `நிலையான` (const): Immutable constant. Cannot be reassigned.
+     நிலையான விகிதம் = $௩.௧௪;
+   - `மாற்றி` (counter/accumulator): Explicitly mutable tracking variable.
+     மாற்றி மொத்தம் = $௦;
+
+4. PRINTING AND STRING CONVERSION:
+   - `அச்சிடு(...)`: Prints to stdout followed by a newline.
+   - `உரையாக்கு(...)`: Explicitly converts a number, object, or boolean to a Tamil string representation.
+   - When concatenating strings with numbers, use `+ உரையாக்கு(எண்)`:
+     அச்சிடு("மொத்தம்: " + உரையாக்கு(கூட்டு));
+
+================================================================================
+SECTION 2: ALL 40 RESERVED KEYWORDS
+================================================================================
+
+[Variables & Declarations]
+  மாறி          Variable declaration (let)
+  நிலையான        Constant declaration (const)
+  மாற்றி         Mutable accumulator variable
+
+[Control Flow - Conditions]
+  என்றால்        If condition
+  இல்லை          Else branch
+  இல்லையெனில்     Else-if branch
+  தேர்ந்தெடு     Switch statement
+  நிலை           Case statement
+  இயல்புநிலை     Default statement
+
+[Control Flow - Loops]
+  ஒவ்வொரு        For loop / For-each loop
+  இருக்கும்வரை    While loop
+  உள்ளே          In / Of loop iterator keyword
+  நிறுத்து       Break from loop / switch
+  தொடரு          Continue to next iteration
+
+[Functions & Subroutines]
+  செயல்          Function declaration
+  கொடு           Return from function
+  ஒத்திசைவற்ற    Async function modifier
+  காத்திரு       Await promise/thread
+
+[Object-Oriented Programming]
+  வகுப்பு         Class declaration
+  உருவாக்கு      Constructor method
+  இது            This (current instance reference)
+  புதிய          New operator (instance instantiation)
+  மரபுரிமை       Extends (class inheritance)
+  முதன்மை        Super / Main
+  நிலையியல்       Static method modifier
+
+[Error Handling]
+  முயற்சி         Try block
+  பிடி           Catch block
+  இறுதியாக       Finally block
+  வீசு           Throw error
+
+[Module System]
+  இறக்குமதி      Import declaration
+  ஏற்றுமதி       Export declaration
+  இருந்து        From module path
+
+[Booleans & Null Values]
+  உண்மை          Boolean true
+  பொய்           Boolean false
+  வெற்று         Null / undefined value
+
+[Special Keywords]
+  வகையறி         Type-of operator
+  உறுதிப்படுத்து   Assertion / test assertion
+
+================================================================================
+SECTION 3: SYNTAX PATTERNS
+================================================================================
+
+1. IF-ELSE CONDITION:
+```yaazhi
+நிலையான மதிப்பெண் = $௭௫;
+
+என்றால் (மதிப்பெண் >= $௪௦) {
+  அச்சிடு("தேர்ச்சி");
+} இல்லையெனில் (மதிப்பெண் >= $௩௫) {
+  அச்சிடு("மறுதேர்வு");
+} இல்லை {
+  அச்சிடு("தோல்வி");
+}
+```
+
+2. FOR LOOP:
+```yaazhi
+// Standard 3-part loop
+ஒவ்வொரு (மாறி எண் = $௦; எண் < $௫; எண் += $௧) {
+  அச்சிடு("எண்: " + உரையாக்கு(எண்));
+}
+
+// For-in loop over array
+நிலையான பழங்கள் = ["மாங்கனி", "வாழை", "பலா"];
+ஒவ்வொரு (மாறி பழம் உள்ளே பழங்கள்) {
+  அச்சிடு("பழம்: " + பழம்);
+}
+```
+
+3. WHILE LOOP:
+```yaazhi
+மாற்றி அளவு = $௦;
+இருக்கும்வரை (அளவு < $௩) {
+  அளவு += $௧;
+  அச்சிடு("அளவு: " + உரையாக்கு(அளவு));
+}
+```
+
+4. FUNCTION WITH RETURN VALUE:
+```yaazhi
+செயல் பெருக்கல்(அ, ஆ) {
+  கொடு அ * ஆ;
+}
+
+நிலையான விடை = பெருக்கல்($௬, $௭);
+அச்சிடு("விடை: " + உரையாக்கு(விடை)); // விடை: 42
+```
+
+5. ARRAYS AND MEMBER METHODS:
+```yaazhi
+மாறி எண்கள் = [$௧, $௨, $௩, $௪];
+சேர்(எண்கள், $௫); // Append item
+
+மாறி இரட்டிப்பு = வரைபடம்(எண்கள், செயல்(மதிப்பு) {
+  கொடு மதிப்பு * $௨;
+});
+
+மாறி வடிகட்டியது = வடிகட்டு(இரட்டிப்பு, செயல்(மதிப்பு) {
+  கொடு மதிப்பு > $௪;
+});
+
+அச்சிடு("முடிவு: " + இணை(வடிகட்டியது, ", "));
+```
+
+6. CLASSES AND METHODS:
+```yaazhi
+வகுப்பு செவ்வகம் {
+  உருவாக்கு(நீளம், அகலம்) {
+    இது.நீளம் = நீளம்;
+    இது.அகலம் = அகலம்;
+  }
+
+  பரப்பளவு() {
+    கொடு இது.நீளம் * இது.அகலம்;
+  }
+
+  நிலையியல் பெயர்() {
+    கொடு "செவ்வகம்";
+  }
+}
+
+மாறி ச = புதிய செவ்வகம்($௧௦, $௫);
+அச்சிடு(செவ்வகம்.பெயர்() + " பரப்பளவு: " + உரையாக்கு(ச.பரப்பளவு()));
+```
+
+7. EXCEPTION HANDLING:
+```yaazhi
+முயற்சி {
+  வீசு "பிழை ஏற்பட்டது!";
+} பிடி (பிழை_தகவல்) {
+  அச்சிடு("பிடிபட்ட பிழை: " + உரையாக்கு(பிழை_தகவல்));
+} இறுதியாக {
+  அச்சிடு("முடிவுற்றது.");
+}
+```
+
+================================================================================
+SECTION 4: VERIFIED STANDALONE PROGRAMS FOR AI CODE GENERATION
+================================================================================
+
+PROGRAM 1: Factorial (காரணியாக்கம்)
+```yaazhi
+செயல் காரணியாக்கம்(எண்) {
+  என்றால் (எண் <= $௧) {
+    கொடு $௧;
+  }
+  கொடு எண் * காரணியாக்கம்(எண் - $௧);
+}
+
+அச்சிடு("5-ன் காரணியாக்கம்: " + உரையாக்கு(காரணியாக்கம்($௫)));
+// வெளியீடு: 5-ன் காரணியாக்கம்: 120
+```
+
+PROGRAM 2: Fibonacci Sequence (பிபொனாச்சி)
+```yaazhi
+செயல் பிபொனாச்சி(வரிசை) {
+  என்றால் (வரிசை <= $௧) {
+    கொடு வரிசை;
+  }
+  கொடு பிபொனாச்சி(வரிசை - $௧) + பிபொனாச்சி(வரிசை - $௨);
+}
+
+ஒவ்வொரு (மாறி குறியீடு = $௦; குறியீடு <= $௮; குறியீடு += $௧) {
+  அச்சிடு(பிபொனாச்சி(குறியீடு));
+}
+```
+
+PROGRAM 3: String manipulation and Word reversing
+```yaazhi
+நிலையான உரை = "வணக்கம்";
+அச்சிடு("நீளம்: " + உரையாக்கு(நீளம்(உரை)));
+அச்சிடு("உரை: " + உரை);
+```

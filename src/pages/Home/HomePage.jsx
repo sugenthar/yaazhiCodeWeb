@@ -5,7 +5,7 @@ import { StatusPill, Eyebrow } from '../../components/common/Ui';
 import { BrandLogo } from '../../components/common/BrandLogo';
 import { Badge } from '../../components/common/Badge';
 import { BRAND, SERVER_CODE, SERVER_RESPONSE, OUTPUT_SERVER, PROJECT_FACTS, STATUS } from '../../content/siteData';
-import { ArrowRight, Terminal, Sparkles, Blocks, BookOpen, FolderTree, Monitor, FileText } from 'lucide-react';
+import { ArrowRight, Terminal, Sparkles, Blocks, BookOpen, FolderTree, Monitor, FileText, Play, Cpu } from 'lucide-react';
 
 const L = (en, ta) => ({ en, ta });
 
@@ -95,8 +95,16 @@ export function HomePage({ onNavigate }) {
             <div className="mt-4 flex flex-col sm:flex-row sm:flex-wrap gap-3 w-full">
               <button
                 type="button"
-                onClick={() => onNavigate('learn', 'introduction')}
+                onClick={() => onNavigate('playground')}
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-lg bg-accent px-5 py-3 text-sm font-semibold text-accent-ink transition-opacity hover:opacity-90 min-h-[44px]"
+              >
+                <Play className="h-4 w-4 fill-current" aria-hidden="true" />
+                {language === 'ta' ? 'உலாவியில் இயக்கு (Playground)' : 'Try Online Playground'}
+              </button>
+              <button
+                type="button"
+                onClick={() => onNavigate('learn', 'introduction')}
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-lg border border-line bg-panel px-5 py-3 text-sm font-semibold text-ink transition-colors hover:border-accent/50 min-h-[44px]"
               >
                 {t('nav_get_started', 'Get Started')} <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </button>
@@ -261,6 +269,117 @@ export function HomePage({ onNavigate }) {
               <span className="text-sm sm:text-base text-ink">{pick(title, language)}</span>
             </div>
           ))}
+        </div>
+      </section>
+
+      <section className="border-t border-line bg-raised/50 py-12 sm:py-16 lg:py-20">
+        <div className="shell">
+          <div className="mb-8 max-w-2xl">
+            <Eyebrow>{language === 'ta' ? 'இணைய வழி அணுகல் & AI' : 'Online Access & AI Ready'}</Eyebrow>
+            <h2 className="mt-2 text-2xl font-bold tracking-tight text-ink sm:text-3xl">
+              {language === 'ta' ? 'எந்த சாதனத்திலும் கணினியிலும் நிறுவாமல் இயக்கலாம்' : 'Run on any device with zero installation'}
+            </h2>
+            <p className="mt-3 text-sm leading-relaxed text-muted">
+              {language === 'ta'
+                ? 'நேரடி இணைய சோதனைக்களம், உலகளாவிய npm தொகுப்புகள் மற்றும் AI முகவர்களுக்கான அதிகாரப்பூர்வ குறியீட்டுத் தரவுகள் யாவும் பொதுவில் கிடைக்கின்றன.'
+                : 'Interactive browser execution, global npm packages, and machine-readable language specs for AI coding agents are publicly available worldwide.'}
+            </p>
+          </div>
+
+          <div className="grid gap-6 md:grid-cols-3">
+            <div className="flex flex-col justify-between rounded-xl border border-line bg-panel p-5 sm:p-6 transition-all hover:border-accent/40">
+              <div>
+                <div className="inline-flex rounded-lg bg-accent/10 p-2.5 text-accent">
+                  <Play className="h-5 w-5 fill-current" />
+                </div>
+                <h3 className="mt-4 text-base font-semibold text-ink">
+                  {language === 'ta' ? 'இணைய சோதனைக்களம்' : 'Online Playground'}
+                </h3>
+                <p className="mt-2 text-xs leading-relaxed text-muted sm:text-sm">
+                  {language === 'ta'
+                    ? 'உலாவியிலேயே தமிழ் குறியீட்டை எழுதி நேரடி இயக்க முடிவுகளை உடனுக்குடன் காணுங்கள். URL பகிர்வு வசதியும் உண்டு.'
+                    : 'Write and run real YaazhiCode programs live in your browser. Includes Tamil error diagnostics and instant link sharing.'}
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => onNavigate('playground')}
+                className="mt-5 inline-flex items-center gap-1.5 font-mono text-xs font-semibold text-accent hover:underline"
+              >
+                {language === 'ta' ? 'சோதனைக்களத்திற்குச் செல்' : 'Launch playground'} →
+              </button>
+            </div>
+
+            <div className="flex flex-col justify-between rounded-xl border border-line bg-panel p-5 sm:p-6 transition-all hover:border-accent/40">
+              <div>
+                <div className="inline-flex rounded-lg bg-accent/10 p-2.5 text-accent">
+                  <Terminal className="h-5 w-5" />
+                </div>
+                <h3 className="mt-4 text-base font-semibold text-ink">
+                  {language === 'ta' ? 'பொது npm தொகுப்புகள்' : 'Public npm Packages'}
+                </h3>
+                <p className="mt-2 text-xs leading-relaxed text-muted sm:text-sm">
+                  {language === 'ta'
+                    ? 'பொது npm பதிவகத்திலிருந்து உங்கள் கணினியில் எளிதாக நிறுவலாம்: yaazhicode மற்றும் yaazhicode-ide.'
+                    : 'Install globally via the official public registry without needing private access or repository checkouts.'}
+                </p>
+                <div className="mt-3 rounded bg-app p-2 font-mono text-xs text-ink">
+                  npm i -g yaazhicode
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => onNavigate('install')}
+                className="mt-5 inline-flex items-center gap-1.5 font-mono text-xs font-semibold text-accent hover:underline"
+              >
+                {language === 'ta' ? 'நிறுவல் வழிமுறை' : 'Install instructions'} →
+              </button>
+            </div>
+
+            <div className="flex flex-col justify-between rounded-xl border border-line bg-panel p-5 sm:p-6 transition-all hover:border-accent/40">
+              <div>
+                <div className="inline-flex rounded-lg bg-accent/10 p-2.5 text-accent">
+                  <Cpu className="h-5 w-5" />
+                </div>
+                <h3 className="mt-4 text-base font-semibold text-ink">
+                  {language === 'ta' ? 'AI குறியீட்டுத் தரவுகள்' : 'AI Coding Specification'}
+                </h3>
+                <p className="mt-2 text-xs leading-relaxed text-muted sm:text-sm">
+                  {language === 'ta'
+                    ? 'Copilot, Claude, ChatGPT, Gemini போன்ற AI முகவர்கள் பிழையின்றி தமிழ் நிரல் எழுத llms.txt மற்றும் AI வழிகாட்டி உள்ளன.'
+                    : 'llms.txt, full specifications, and system prompts optimized for LLMs and AI coding assistants.'}
+                </p>
+              </div>
+              <div className="mt-5 flex items-center gap-3 font-mono text-xs">
+                <a
+                  href="/AI_CODING_GUIDE.md"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-semibold text-accent hover:underline"
+                >
+                  AI Guide
+                </a>
+                <span className="text-line">|</span>
+                <a
+                  href="/llms.txt"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-semibold text-accent hover:underline"
+                >
+                  llms.txt
+                </a>
+                <span className="text-line">|</span>
+                <a
+                  href="/yaazhicode-spec.json"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-semibold text-accent hover:underline"
+                >
+                  JSON Spec
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 

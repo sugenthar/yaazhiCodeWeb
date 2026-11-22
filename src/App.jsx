@@ -12,6 +12,7 @@ import { InstallPage } from './pages/Install/InstallPage';
 import { LearnPage } from './pages/Learn/LearnPage';
 import { LanguagePage } from './pages/Language/LanguagePage';
 import { ExamplesPage } from './pages/Examples/ExamplesPage';
+import { PlaygroundPage } from './pages/Playground/PlaygroundPage';
 import { IDEPage } from './pages/IDE/IDEPage';
 import { FuturePage } from './pages/Future/FuturePage';
 import { learnContent } from './content/docsData';
@@ -67,6 +68,13 @@ const PAGE_META = {
     description: {
       en: 'Verified .yaazhi programs with exact expected output, copy buttons, and local run commands.',
       ta: 'சரிபார்க்கப்பட்ட .yaazhi நிரல்கள், சரியான எதிர்பார்க்கும் வெளியீடு, நகலெடுக்கும் வசதி, உள்ளூர் இயக்க கட்டளைகள்.',
+    },
+  },
+  playground: {
+    title: { en: 'Playground — YaazhiCode', ta: 'சோதனைக்களம் — YaazhiCode' },
+    description: {
+      en: 'Execute YaazhiCode programs live in the browser with real execution, Tamil error diagnostics, preloaded examples, and shareable links.',
+      ta: 'உலாவி வழியே நேரடி இயக்க வசதி, தமிழ் தொடரியல் வண்ணங்கள், பிழை திருத்தங்கள், பகிர்வு இணைப்புகளுடன் YaazhiCode-ஐ உடனே இயக்குங்கள்.',
     },
   },
   ide: {
@@ -176,6 +184,7 @@ function AppContent() {
         {page === 'learn' && <LearnPage initialLessonId={id} onNavigate={navigate} />}
         {page === 'language' && <LanguagePage initialSampleId={id} onNavigate={navigate} />}
         {page === 'examples' && <ExamplesPage initialExampleId={id} onNavigate={navigate} />}
+        {page === 'playground' && <PlaygroundPage onNavigate={navigate} />}
         {page === 'ide' && <IDEPage onNavigate={navigate} />}
         {page === 'future' && <FuturePage initialPhaseId={id} onNavigate={navigate} />}
       </main>

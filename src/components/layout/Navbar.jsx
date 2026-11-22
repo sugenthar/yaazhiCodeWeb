@@ -56,7 +56,7 @@ export function Navbar({ activePage, onNavigate, onOpenSearch }) {
                 key={link.id}
                 type="button"
                 onClick={() => handleNavClick(link.id)}
-                className={`rounded-md px-2 py-1.5 transition-colors xl:px-3 ${
+                className={`rounded-md px-1.5 py-1 text-xs transition-colors xl:px-2.5 xl:py-1.5 xl:text-sm ${
                   isActive
                     ? 'bg-panel font-semibold text-ink shadow-sm'
                     : 'text-muted hover:bg-panel hover:text-ink'
