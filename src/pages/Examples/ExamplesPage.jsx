@@ -34,10 +34,10 @@ export function ExamplesPage({ initialExampleId, onNavigate }) {
         badge={<StatusPill status={STATUS.available} />}
       />
 
-      <div className="shell py-10">
+      <div className="shell py-8 sm:py-12 lg:py-16">
         <Breadcrumb items={[{ label: t('nav_examples', 'Examples') }]} onNavigate={onNavigate} />
 
-        <div className="mb-8 flex items-start gap-2 rounded-lg border border-caution/30 bg-caution/5 p-4 text-xs text-muted">
+        <div className="mb-6 sm:mb-10 flex items-start gap-2 rounded-lg border border-caution/30 bg-caution/5 p-3 sm:p-4 text-xs sm:text-sm text-muted">
           <Info className="mt-0.5 h-4 w-4 shrink-0 text-caution" aria-hidden="true" />
           <p>
             {language === 'ta'
@@ -54,15 +54,15 @@ export function ExamplesPage({ initialExampleId, onNavigate }) {
             : 'From basics to file operations, all snippets are real YaazhiCode.'}
         />
 
-        <div className="mb-8 flex flex-wrap gap-2" role="group" aria-label={language === 'ta' ? 'எடுத்துக்காட்டு வகைகள்' : 'Example categories'}>
+        <div className="mb-6 sm:mb-10 flex flex-wrap gap-2" role="group" aria-label={language === 'ta' ? 'எடுத்துக்காட்டு வகைகள்' : 'Example categories'}>
           {exampleCategories.map((cat) => (
             <button
               key={cat.id}
               type="button"
               onClick={() => setActiveCategory(cat.id)}
-              className={`rounded-md border px-3 py-1.5 text-xs font-medium transition-colors ${
+              className={`min-h-[40px] rounded-lg border px-3 py-2 sm:px-4 sm:py-2 text-xs sm:text-sm font-medium transition-colors ${
                 activeCategory === cat.id
-                  ? 'border-accent/50 bg-accent-soft text-accent'
+                  ? 'border-accent/50 bg-accent-soft text-accent shadow-sm'
                   : 'border-line bg-panel text-muted hover:text-ink'
               }`}
               aria-pressed={activeCategory === cat.id}
@@ -72,19 +72,19 @@ export function ExamplesPage({ initialExampleId, onNavigate }) {
           ))}
         </div>
 
-        <div className="grid gap-8 xl:grid-cols-2">
+        <div className="grid gap-6 sm:gap-8 xl:grid-cols-2">
           {filtered.map((example) => (
-            <section key={example.id} id={example.id} className="scroll-mt-24 rounded-xl border border-line bg-panel p-5">
-              <div className="flex flex-wrap items-start justify-between gap-3">
+            <section key={example.id} id={example.id} className="scroll-mt-24 min-w-0 overflow-hidden rounded-xl border border-line bg-panel p-4 sm:p-5">
+              <div className="flex flex-wrap items-start justify-between gap-3 sm:gap-4">
                 <div>
-                  <h2 className="text-base font-semibold text-ink">{pick(example.title, language)}</h2>
-                  <p className="mt-1 max-w-xl text-xs leading-relaxed text-muted">{pick(example.summary, language)}</p>
+                  <h2 className="text-base sm:text-lg font-semibold text-ink">{pick(example.title, language)}</h2>
+                  <p className="mt-1 max-w-xl text-xs sm:text-sm leading-relaxed text-muted">{pick(example.summary, language)}</p>
                 </div>
                 <Badge variant="outline">{example.category}</Badge>
               </div>
 
               {example.note && (
-                <p className="mt-3 rounded-md border border-line bg-app px-3 py-2 text-xs text-muted">
+                <p className="mt-3 sm:mt-4 rounded-md border border-line bg-app px-3 sm:px-4 py-2 sm:py-2.5 text-xs sm:text-sm text-muted">
                   {pick(example.note, language)}
                 </p>
               )}
@@ -92,32 +92,32 @@ export function ExamplesPage({ initialExampleId, onNavigate }) {
               <CodeBlock code={example.code} language="tamil" filename="main.yaazhi" />
 
               {example.supporting?.map((file) => (
-                <div key={file.filename} className="mt-3">
-                  <p className="mb-1 font-mono text-[11px] text-faint">{file.filename}</p>
+                <div key={file.filename} className="mt-3 sm:mt-4">
+                  <p className="mb-1 font-mono text-xs text-faint">{file.filename}</p>
                   <CodeBlock code={file.code} language="tamil" filename={file.filename} />
                 </div>
               ))}
 
-              <div className="mt-3 rounded-lg border border-line bg-app p-3">
-                <p className="mb-1 font-mono text-[10px] uppercase tracking-wide text-faint">
+              <div className="mt-3 sm:mt-4 rounded-lg border border-line bg-app p-3 sm:p-4">
+                <p className="mb-1 font-mono text-xs uppercase tracking-wide text-faint">
                   {language === 'ta' ? 'எதிர்பார்க்கும் வெளியீடு' : 'Expected output'}
                 </p>
-                <pre className="whitespace-pre-wrap font-mono text-xs leading-5 text-muted">{example.output}</pre>
+                <pre className="whitespace-pre-wrap font-mono text-xs sm:text-sm leading-5 sm:leading-6 text-muted overflow-x-auto">{example.output}</pre>
               </div>
 
-              <div className="mt-4 rounded-lg border border-line bg-app p-3">
-                <p className="mb-2 flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-wide text-faint">
+              <div className="mt-3 sm:mt-4 rounded-lg border border-line bg-app p-3 sm:p-4">
+                <p className="mb-2 flex items-center gap-1.5 font-mono text-xs uppercase tracking-wide text-faint">
                   <Terminal className="h-3 w-3" aria-hidden="true" /> {language === 'ta' ? 'இயக்க கட்டளை' : 'Run locally'}
                 </p>
-                <code className="block break-all font-mono text-xs text-accent">{example.run}</code>
+                <code className="block break-all font-mono text-xs sm:text-sm text-accent">{example.run}</code>
               </div>
             </section>
           ))}
-        </div>
 
-        {filtered.length === 0 && (
-          <p className="py-12 text-center text-sm text-faint">{t('search_no_results', 'No matching results found')}</p>
-        )}
+          {filtered.length === 0 && (
+            <p className="py-12 sm:py-16 text-center text-sm text-faint">{t('search_no_results', 'No matching results found')}</p>
+          )}
+        </div>
       </div>
     </>
   );

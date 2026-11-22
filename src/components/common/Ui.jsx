@@ -27,7 +27,7 @@ export function StatusPill({ status = STATUS.available, className = '' }) {
   }[key] || 'bg-faint';
 
   return (
-    <span className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 font-mono text-[10px] font-medium uppercase tracking-wide ${tone} ${className}`}>
+    <span className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 font-mono text-xs font-medium uppercase tracking-wide ${tone} ${className}`}>
       <span className={`h-1.5 w-1.5 rounded-full ${dot}`} aria-hidden="true" />
       {pick(label, language)}
     </span>
@@ -46,15 +46,15 @@ export function PageHeader({ eyebrow, title, lead, badge, children }) {
   return (
     <section className="relative overflow-hidden border-b border-line bg-gradient-to-b from-accent-soft/40 to-transparent">
       <div className="subtle-grid pointer-events-none absolute inset-0 opacity-40" aria-hidden="true" />
-      <div className="shell relative py-14 sm:py-20">
+      <div className="shell relative py-10 sm:py-16 lg:py-20">
         <div className="max-w-3xl">
-          <BrandLogo className="mb-5 h-10 w-10 sm:h-12 sm:w-12" />
+          <BrandLogo className="mb-4 sm:mb-5 h-9 w-9 sm:h-12 sm:w-12" />
           {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
-          <div className="mt-3 flex flex-wrap items-center gap-3">
-            <h1 className="text-3xl font-bold tracking-tight text-ink sm:text-4xl lg:text-5xl">{title}</h1>
+          <div className="mt-2 sm:mt-3 flex flex-wrap items-center gap-2 sm:gap-3">
+            <h1 className="text-2xl font-bold tracking-tight text-ink sm:text-4xl lg:text-5xl">{title}</h1>
             {badge}
           </div>
-          {lead && <p className="mt-5 text-base leading-relaxed text-muted sm:text-lg">{lead}</p>}
+          {lead && <p className="mt-3 sm:mt-5 text-sm leading-relaxed text-muted sm:text-lg">{lead}</p>}
           {children}
         </div>
       </div>
@@ -64,17 +64,17 @@ export function PageHeader({ eyebrow, title, lead, badge, children }) {
 
 export function SectionHeading({ eyebrow, title, description, align = 'left' }) {
   return (
-    <div className={`${align === 'center' ? 'mx-auto max-w-2xl text-center' : 'max-w-2xl'} mb-8 sm:mb-10`}>
+    <div className={`${align === 'center' ? 'mx-auto max-w-2xl text-center' : 'max-w-2xl'} mb-6 sm:mb-10`}>
       {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
-      <h2 className="mt-2 text-2xl font-bold tracking-tight text-ink sm:text-3xl">{title}</h2>
-      {description && <p className="mt-3 text-sm leading-relaxed text-muted sm:text-base">{description}</p>}
+      <h2 className="mt-2 text-xl font-bold tracking-tight text-ink sm:text-2xl lg:text-3xl">{title}</h2>
+      {description && <p className="mt-2 sm:mt-3 text-xs sm:text-sm leading-relaxed text-muted sm:text-base">{description}</p>}
     </div>
   );
 }
 
 export function ActionLink({ href, children, variant = 'solid', className = '' }) {
   const external = href.startsWith('http');
-  const base = 'inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-semibold transition-colors';
+  const base = 'inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-semibold transition-colors min-h-[44px]';
   const variants = {
     solid: 'bg-accent text-accent-ink hover:opacity-90',
     outline: 'border border-line bg-panel text-ink hover:border-accent/60',

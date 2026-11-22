@@ -23,8 +23,17 @@ export default {
         tamil: ['Noto Tamil VF', 'Noto Sans Tamil', 'Nirmala UI', 'Latha', 'system-ui', 'sans-serif'],
         mono: ['JetBrains Mono', 'Cascadia Code', 'Consolas', 'monospace'],
       },
+      screens: {
+        xs: '420px',
+        sm: '640px',
+        md: '768px',
+        lg: '1024px',
+        xl: '1280px',
+        '2xl': '1536px',
+        '3xl': '1920px',
+      },
       maxWidth: {
-        content: '80rem',
+        content: '82rem',
         prose: '48rem',
       },
       keyframes: {

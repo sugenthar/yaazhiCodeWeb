@@ -29,9 +29,10 @@ export function CodeBlock({
   const displayName = filename || (isTamil ? 'main.yaazhi' : 'output');
 
   return (
-    <div className={`my-4 overflow-hidden rounded-xl border border-line bg-app/70 ${className}`}>
-      <div className="flex items-center justify-between gap-3 border-b border-line bg-panel px-4 py-2">
-        <div className="flex min-w-0 items-center gap-2 text-xs">
+    <div className={`my-3 sm:my-4 min-w-0 overflow-hidden rounded-xl border border-line bg-app/70 ${className}`}>
+      {/* Header bar */}
+      <div className="flex flex-col xs:flex-row items-start xs:items-center justify-between gap-2 border-b border-line bg-panel px-3 sm:px-4 py-2 sm:py-2.5">
+        <div className="flex min-w-0 max-w-full items-center gap-2 text-xs sm:text-sm">
           {isTerminal ? (
             <Terminal className="h-3.5 w-3.5 shrink-0 text-faint" aria-hidden="true" />
           ) : (
@@ -39,21 +40,22 @@ export function CodeBlock({
           )}
           <span className="truncate font-mono font-medium text-ink">{displayName}</span>
         </div>
-        <div className="flex shrink-0 items-center gap-2">
-          <span className="rounded border border-line bg-raised px-1.5 py-0.5 font-mono text-[10px] uppercase tracking-wide text-faint">
+        <div className="flex shrink-0 items-center gap-2 self-end xs:self-auto">
+          <span className="rounded border border-line bg-raised px-1.5 py-0.5 font-mono text-xs uppercase tracking-wide text-faint">
             {isTamil ? '.yaazhi' : language}
           </span>
-          {showCopy && <CopyButton text={code} />}
+          {showCopy && <CopyButton text={code} className="text-xs" />}
         </div>
       </div>
 
-      <div className="overflow-x-auto p-4 font-mono text-[12.5px] leading-6 sm:text-[13px]">
+      {/* Code body with horizontal scroll inside */}
+      <div className="overflow-x-auto p-3 sm:p-4 font-mono text-xs sm:text-sm leading-5 sm:leading-6">
         <pre className="m-0 min-w-full bg-transparent p-0">
           {highlighted ? (
             highlighted.map((lineTokens, lineIdx) => (
               <div key={lineIdx} className="table-row hover:bg-ink/[0.025]">
                 {showLineNumbers && (
-                  <span className="table-cell w-8 select-none pr-4 text-right text-[11px] text-faint">
+                  <span className="table-cell w-7 sm:w-8 select-none pr-2.5 sm:pr-4 text-right text-xs text-faint">
                     {lineIdx + 1}
                   </span>
                 )}
@@ -72,7 +74,7 @@ export function CodeBlock({
             rawLines.map((line, lineIdx) => (
               <div key={lineIdx} className="table-row hover:bg-ink/[0.025]">
                 {showLineNumbers && (
-                  <span className="table-cell w-8 select-none pr-4 text-right text-[11px] text-faint">
+                  <span className="table-cell w-7 sm:w-8 select-none pr-2.5 sm:pr-4 text-right text-xs text-faint">
                     {lineIdx + 1}
                   </span>
                 )}

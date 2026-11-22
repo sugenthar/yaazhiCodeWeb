@@ -3,14 +3,62 @@ import { useLanguage, pick } from '../../context/LanguageContext';
 import { ChevronRight } from 'lucide-react';
 import { BrandLogo } from '../common/BrandLogo';
 
-export function DocumentationSidebar({ categories = [], activeDocId, onSelectDoc, className = '' }) {
+export function DocumentationSidebar({
+  categories = [],
+  activeDocId,
+  onSelectDoc,
+  className = '',
+  isMobile = false,
+}) {
   const { language } = useLanguage();
 
+  if (isMobile) {
+    return (
+      <nav className={`space-y-4 text-sm font-sans ${className}`} aria-label="Lessons navigation">
+        {categories.map((category) => (
+          <div key={category.id} className="space-y-1">
+            <h3 className="px-2 font-mono text-xs font-semibold uppercase tracking-wider text-faint">
+              {pick(category.title, language)}
+            </h3>
+            <ul className="space-y-1" role="list">
+              {category.items.map((item) => {
+                const isActive = activeDocId === item.id;
+                return (
+                  <li key={item.id}>
+                    <button
+                      type="button"
+                      onClick={() => onSelectDoc(item.id)}
+                      className={`flex min-h-[40px] w-full items-center justify-between rounded-lg px-3 py-2 text-left text-xs font-medium transition-colors sm:text-sm ${
+                        isActive
+                          ? 'border-l-2 border-accent bg-accent-soft pl-2.5 font-semibold text-accent'
+                          : 'text-muted hover:bg-raised hover:text-ink'
+                      }`}
+                      aria-current={isActive ? 'page' : undefined}
+                    >
+                      <span className="flex-1 break-words pr-2 leading-snug">{pick(item.title, language)}</span>
+                      {isActive && <ChevronRight className="h-4 w-4 shrink-0 text-accent" aria-hidden="true" />}
+                    </button>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        ))}
+      </nav>
+    );
+  }
+
   return (
-    <aside className={`flex-shrink-0 pb-10 text-sm font-sans lg:sticky lg:top-20 lg:h-[calc(100vh-5rem)] lg:w-72 lg:overflow-y-auto xl:w-80 ${className}`}>
+    <aside
+      className={`flex-shrink-0 pb-10 text-sm font-sans lg:sticky lg:top-20 lg:h-[calc(100vh-5rem)] lg:w-72 lg:overflow-y-auto xl:w-80 ${className}`}
+      aria-label="Lessons sidebar"
+    >
       <div className="mb-6 flex items-center gap-2.5 px-3">
-        <BrandLogo className="h-8 w-8" decorative />
+        <BrandLogo className="h-7 w-7" decorative />
         <span className="font-mono text-sm font-bold text-ink">YaazhiCode</span>
+        <span className="rounded border border-line bg-panel px-1.5 py-0.5 font-mono text-xs text-faint">
+          Docs
+        </span>
       </div>
       <div className="space-y-6">
         {categories.map((category) => (
@@ -26,7 +74,7 @@ export function DocumentationSidebar({ categories = [], activeDocId, onSelectDoc
                     <button
                       type="button"
                       onClick={() => onSelectDoc(item.id)}
-                      className={`flex w-full items-center justify-between rounded-md px-3 py-2 text-left text-xs font-medium transition-colors ${
+                      className={`flex w-full items-center justify-between rounded-md px-3 py-2 text-left text-xs font-medium transition-colors sm:text-sm ${
                         isActive
                           ? 'border-l-2 border-accent bg-accent-soft pl-2.5 font-semibold text-accent'
                           : 'text-muted hover:bg-panel hover:text-ink'

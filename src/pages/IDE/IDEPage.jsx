@@ -13,6 +13,10 @@ import {
 import { PROJECT_FACTS, STATUS } from '../../content/siteData';
 import { Check, X, AlertCircle, Monitor, Keyboard, FolderTree, Play } from 'lucide-react';
 
+function L(en, ta) {
+  return { en, ta };
+}
+
 export function IDEPage({ onNavigate }) {
   const { language, t } = useLanguage();
 
@@ -27,25 +31,25 @@ export function IDEPage({ onNavigate }) {
         badge={<StatusPill status={STATUS.available} />}
       />
 
-      <div className="shell py-10">
+      <div className="shell py-8 sm:py-12 lg:py-16">
         <Breadcrumb items={[{ label: t('nav_ide', 'IDE') }]} onNavigate={onNavigate} />
 
-        <div className="mb-10 grid gap-3 sm:grid-cols-3">
+        <div className="mb-6 sm:mb-10 grid gap-3 sm:gap-4 grid-cols-1 sm:grid-cols-3">
           <Card hover={false}>
             <p className="font-mono text-xs text-faint">v{PROJECT_FACTS.version}</p>
-            <p className="mt-1 text-sm font-semibold text-ink">{language === 'ta' ? 'சரிபார்க்கப்பட்ட பதிப்பு' : 'Verified version'}</p>
+            <p className="mt-1 text-sm sm:text-base font-semibold text-ink">{language === 'ta' ? 'சரிபார்க்கப்பட்ட பதிப்பு' : 'Verified version'}</p>
           </Card>
           <Card hover={false}>
             <p className="font-mono text-xs text-faint">{PROJECT_FACTS.sourceExtension}</p>
-            <p className="mt-1 text-sm font-semibold text-ink">{language === 'ta' ? 'கோப்பு நீட்டிப்பு' : 'Source extension'}</p>
+            <p className="mt-1 text-sm sm:text-base font-semibold text-ink">{language === 'ta' ? 'கோப்பு நீட்டிப்பு' : 'Source extension'}</p>
           </Card>
           <Card hover={false}>
             <p className="font-mono text-xs text-faint">127.0.0.1 / localhost</p>
-            <p className="mt-1 text-sm font-semibold text-ink">{language === 'ta' ? 'உள்ளூர் முகவரி மட்டும்' : 'Local address only'}</p>
+            <p className="mt-1 text-sm sm:text-base font-semibold text-ink">{language === 'ta' ? 'உள்ளூர் முகவரி மட்டும்' : 'Local address only'}</p>
           </Card>
         </div>
 
-        <div className="mb-10 flex items-start gap-2 rounded-lg border border-caution/30 bg-caution/5 p-4 text-xs text-muted">
+        <div className="mb-6 sm:mb-10 flex items-start gap-2 rounded-lg border border-caution/30 bg-caution/5 p-3 sm:p-4 text-xs sm:text-sm text-muted">
           <AlertCircle className="mt-0.5 h-4 w-4 shrink-0 text-caution" aria-hidden="true" />
           <p>
             {language === 'ta'
@@ -54,7 +58,7 @@ export function IDEPage({ onNavigate }) {
           </p>
         </div>
 
-        <section className="py-4">
+        <section className="py-2 sm:py-6">
           <SectionHeading
             eyebrow={language === 'ta' ? 'தொடங்குதல்' : 'Getting started'}
             title={language === 'ta' ? 'நிறுவல் முதல் முதல் இயக்கம் வரை' : 'From install to first run'}
@@ -62,14 +66,14 @@ export function IDEPage({ onNavigate }) {
               ? 'இந்தப் படிகள் அதிகாரப்பூர்வ IDE ஆவணங்களை அடிப்படையாகக் கொண்டவை.'
               : 'These steps follow the official IDE documentation.'}
           />
-          <div className="space-y-4">
+          <div className="space-y-3 sm:space-y-4">
             {ideSteps.map((step) => (
               <Card key={step.n} hover={false}>
-                <div className="flex flex-col gap-4 sm:flex-row sm:gap-6">
+                <div className="flex flex-col sm:flex-row gap-3 sm:gap-6">
                   <div className="sm:w-64">
-                    <span className="font-mono text-sm font-semibold text-accent">{step.n}</span>
-                    <h3 className="mt-1 text-sm font-semibold text-ink">{pick(step.title, language)}</h3>
-                    <p className="mt-1 text-xs leading-relaxed text-muted">{pick(step.body, language)}</p>
+                    <span className="font-mono text-sm sm:text-base font-semibold text-accent">{step.n}</span>
+                    <h3 className="mt-1 text-sm sm:text-base font-semibold text-ink">{pick(step.title, language)}</h3>
+                    <p className="mt-1 text-xs sm:text-sm leading-relaxed text-muted">{pick(step.body, language)}</p>
                   </div>
                   <div className="min-w-0 flex-1">
                     <CodeBlock code={step.code} language="bash" filename="" />
@@ -80,7 +84,7 @@ export function IDEPage({ onNavigate }) {
           </div>
         </section>
 
-        <section className="border-t border-line py-12">
+        <section className="border-t border-line py-4 sm:py-12">
           <SectionHeading
             eyebrow={language === 'ta' ? 'சரிபார்க்கப்பட்ட திறன்கள்' : 'Verified capabilities'}
             title={language === 'ta' ? 'IDE-ல் உள்ளது' : 'What the IDE includes'}
@@ -91,17 +95,17 @@ export function IDEPage({ onNavigate }) {
           <div className="overflow-hidden rounded-xl border border-line">
             <div className="divide-y divide-line bg-panel">
               {ideFeatureMatrix.map((row) => (
-                <div key={row.feature.en} className="grid gap-2 px-4 py-3 sm:grid-cols-[minmax(150px,1fr)_2fr_auto] sm:items-center">
+                <div key={row.feature.en} className="grid gap-2 px-3 sm:px-4 py-2 sm:py-3 sm:grid-cols-[minmax(120px,1fr)_2fr_auto] sm:items-center">
                   <div className="text-sm font-medium text-ink">{pick(row.feature, language)}</div>
-                  <div className="text-xs leading-relaxed text-muted">{pick(row.detail, language)}</div>
+                  <div className="text-xs sm:text-sm leading-relaxed text-muted">{pick(row.detail, language)}</div>
                   <div className="sm:text-right">
                     {row.available ? (
-                      <span className="inline-flex items-center gap-1 font-mono text-[11px] text-positive">
+                      <span className="inline-flex items-center gap-1 font-mono text-xs text-positive">
                         <Check className="h-3.5 w-3.5" aria-hidden="true" />
                         {language === 'ta' ? 'உள்ளது' : 'Included'}
                       </span>
                     ) : (
-                      <span className="inline-flex items-center gap-1 font-mono text-[11px] text-faint">
+                      <span className="inline-flex items-center gap-1 font-mono text-xs text-faint">
                         <X className="h-3.5 w-3.5" aria-hidden="true" />
                         {language === 'ta' ? 'இல்லை' : 'Not included'}
                       </span>
@@ -113,7 +117,7 @@ export function IDEPage({ onNavigate }) {
           </div>
         </section>
 
-        <section className="border-t border-line py-12">
+        <section className="border-t border-line py-4 sm:py-12">
           <SectionHeading
             eyebrow={language === 'ta' ? 'விசைப்பலகை' : 'Keyboard'}
             title={language === 'ta' ? 'விசைக்குறுக்குவழிகள்' : 'Keyboard shortcuts'}
@@ -121,22 +125,22 @@ export function IDEPage({ onNavigate }) {
               ? 'அதிகாரப்பூர்வ ஆவணங்களில் பட்டியலிடப்பட்ட விசைக்குறுக்குவழிகள்.'
               : 'The shortcuts listed in the official IDE documentation.'}
           />
-          <div className="grid gap-3 sm:grid-cols-2">
+          <div className="grid gap-3 sm:gap-4 grid-cols-1 sm:grid-cols-2">
             {ideShortcuts.map(([shortcut, action]) => (
-              <div key={shortcut} className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-line bg-panel px-4 py-3">
-                <code className="font-mono text-xs text-accent">{shortcut}</code>
-                <span className="text-xs text-muted">{pick(action, language)}</span>
+              <div key={shortcut} className="flex flex-wrap items-center justify-between gap-3 sm:gap-4 rounded-lg border border-line bg-panel px-3 sm:px-4 py-2 sm:py-3">
+                <code className="font-mono text-xs sm:text-sm text-accent">{shortcut}</code>
+                <span className="text-xs sm:text-sm text-muted">{pick(action, language)}</span>
               </div>
             ))}
           </div>
         </section>
 
-        <section className="border-t border-line py-12">
+        <section className="border-t border-line py-4 sm:py-12">
           <SectionHeading
             eyebrow={language === 'ta' ? 'பகுதிகள்' : 'Areas'}
             title={language === 'ta' ? 'தினசரி பயன்பாட்டு ஓட்டம்' : 'Everyday workflow'}
           />
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-4 sm:gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
             {[
               { icon: FolderTree, title: L('Projects and files', 'திட்டங்களும் கோப்புகளும்'), body: L('Create or open a project, then create files and folders in Explorer.', 'திட்டத்தை உருவாக்கி அல்லது திறந்து, Explorer-ல் கோப்புகளையும் கோப்பகங்களையும் உருவாக்கவும்.') },
               { icon: Play, title: L('Write and run', 'எழுதி இயக்கு'), body: L('Edit a .yaazhi file, run it, stop it, and read the output and diagnostics.', '.yaazhi கோப்பைத் திருத்தி, இயக்கி, நிறுத்தி, வெளியீட்டையும் நோயறிதிகளையும் படிக்கவும்.') },
@@ -147,57 +151,59 @@ export function IDEPage({ onNavigate }) {
               return (
                 <Card key={item.title.en} hover={false}>
                   <Icon className="h-5 w-5 text-accent" aria-hidden="true" />
-                  <h3 className="mt-4 text-sm font-semibold text-ink">{pick(item.title, language)}</h3>
-                  <p className="mt-2 text-xs leading-relaxed text-muted">{pick(item.body, language)}</p>
+                  <h3 className="mt-4 text-sm sm:text-base font-semibold text-ink">{pick(item.title, language)}</h3>
+                  <p className="mt-2 text-xs sm:text-sm leading-relaxed text-muted">{pick(item.body, language)}</p>
                 </Card>
               );
             })}
           </div>
         </section>
 
-        <section className="border-t border-line py-12">
+        <section className="border-t border-line py-4 sm:py-12">
           <SectionHeading
             eyebrow={language === 'ta' ? 'சிக்கல் தீர்வு' : 'Troubleshooting'}
             title={language === 'ta' ? 'IDE தொடர்பான பொதுவான சிக்கல்கள்' : 'Common IDE issues'}
           />
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="grid gap-4 sm:gap-5 grid-cols-1 sm:grid-cols-2">
             {troubleshooting.map((item) => (
-              <div key={item.title.en} className="rounded-lg border border-line bg-panel p-4">
-                <h3 className="flex items-center gap-2 text-xs font-semibold text-ink">
+              <div key={item.title.en} className="rounded-lg border border-line bg-panel p-4 sm:p-5">
+                <h3 className="flex items-center gap-2 text-xs sm:text-sm font-semibold text-ink">
                   <Monitor className="h-3.5 w-3.5 text-accent" aria-hidden="true" />
                   {pick(item.title, language)}
                 </h3>
-                <p className="mt-2 text-xs leading-relaxed text-muted">{pick(item.body, language)}</p>
+                <p className="mt-2 text-xs sm:text-sm leading-relaxed text-muted">{pick(item.body, language)}</p>
               </div>
             ))}
           </div>
         </section>
 
-        <section className="border-t border-line py-12">
-          <div className="flex flex-wrap items-center gap-4 rounded-xl border border-line bg-panel p-6">
-            <Play className="h-5 w-5 text-accent" aria-hidden="true" />
-            <div>
-              <h2 className="text-lg font-semibold text-ink">
-                {language === 'ta' ? 'நிறுவி முதல் நிரலை இயக்குங்கள்' : 'Install, then run your first program'}
-              </h2>
-              <p className="mt-1 text-xs text-muted">
-                {language === 'ta'
-                  ? 'நிறுவல் வழிகாட்டி மற்றும் முதல் நிரல் பாடம் இங்கே உள்ளன.'
-                  : 'The install guide and first-program lesson are one click away.'}
-              </p>
+        <section className="border-t border-line py-4 sm:py-12">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 rounded-xl border border-line bg-panel p-4 sm:p-6">
+            <div className="flex items-center gap-3">
+              <Play className="h-5 w-5 shrink-0 text-accent" aria-hidden="true" />
+              <div>
+                <h2 className="text-lg sm:text-xl font-semibold text-ink">
+                  {language === 'ta' ? 'நிறுவி முதல் நிரலை இயக்குங்கள்' : 'Install, then run your first program'}
+                </h2>
+                <p className="mt-1 text-xs sm:text-sm text-muted">
+                  {language === 'ta'
+                    ? 'நிறுவல் வழிகாட்டி மற்றும் முதல் நிரல் பாடம் இங்கே உள்ளன.'
+                    : 'The install guide and first-program lesson are one click away.'}
+                </p>
+              </div>
             </div>
-            <div className="ml-auto flex flex-wrap gap-3">
+            <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
               <button
                 type="button"
                 onClick={() => onNavigate('install')}
-                className="rounded-lg bg-accent px-4 py-2 text-sm font-semibold text-accent-ink hover:opacity-90"
+                className="w-full sm:w-auto rounded-lg bg-accent px-4 py-2 sm:px-5 sm:py-2.5 text-sm font-semibold text-accent-ink hover:opacity-90 min-h-[44px]"
               >
                 {language === 'ta' ? 'நிறுவல்' : 'Install'}
               </button>
               <button
                 type="button"
                 onClick={() => onNavigate('learn', 'first-program')}
-                className="rounded-lg border border-line bg-app px-4 py-2 text-sm font-semibold text-ink hover:border-accent/50"
+                className="w-full sm:w-auto rounded-lg border border-line bg-app px-4 py-2 sm:px-5 sm:py-2.5 text-sm font-semibold text-ink hover:border-accent/50 min-h-[44px]"
               >
                 {language === 'ta' ? 'முதல் நிரல்' : 'First program'}
               </button>
@@ -207,8 +213,4 @@ export function IDEPage({ onNavigate }) {
       </div>
     </>
   );
-}
-
-function L(en, ta) {
-  return { en, ta };
 }

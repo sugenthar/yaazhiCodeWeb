@@ -21,10 +21,10 @@ export function FeaturesPage({ onNavigate }) {
         badge={<StatusPill status="available" />}
       />
 
-      <div className="shell py-10">
+      <div className="shell py-8 sm:py-12 lg:py-16">
         <Breadcrumb items={[{ label: t('nav_features', 'Features') }]} onNavigate={onNavigate} />
 
-        <section className="py-8">
+        <section className="py-4 sm:py-8">
           <SectionHeading
             eyebrow={language === 'ta' ? 'நன்மைகள்' : 'Advantages'}
             title={language === 'ta' ? 'தமிழ்-முதல் வடிவமைப்பு' : 'Tamil-first by design'}
@@ -32,20 +32,20 @@ export function FeaturesPage({ onNavigate }) {
               ? 'தொடரியல், கருவிகள், ஆவணங்கள் — அனைத்தும் ஒரே தமிழ் அடிப்படையைக் கொண்டுள்ளன.'
               : 'Syntax, tools, diagnostics, and docs all share one Tamil foundation.'}
           />
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
             {advantages.map((item) => (
               <Card key={item.id}>
                 <div className="flex items-start justify-between gap-2">
-                  <h3 className="text-sm font-semibold text-ink">{pick(item.title, language)}</h3>
+                  <h3 className="text-sm sm:text-base font-semibold text-ink">{pick(item.title, language)}</h3>
                   <StatusPill status={item.status} className="shrink-0" />
                 </div>
-                <p className="mt-3 text-xs leading-relaxed text-muted">{pick(item.body, language)}</p>
+                <p className="mt-3 text-xs sm:text-sm leading-relaxed text-muted">{pick(item.body, language)}</p>
               </Card>
             ))}
           </div>
         </section>
 
-        <section className="border-t border-line py-12">
+        <section className="border-t border-line py-6 sm:py-12">
           <SectionHeading
             eyebrow={language === 'ta' ? 'பயன்பாடுகள்' : 'Applications'}
             title={language === 'ta' ? 'எங்கு பயன்படுத்தலாம்' : 'Where it fits today'}
@@ -53,14 +53,14 @@ export function FeaturesPage({ onNavigate }) {
               ? 'கற்றல், உள்ளூர் கருவிகள், உள்ளூர் வலைச் சேவைகள், உரை நிரல்கள் — அனைத்தும் இன்று சாத்தியம்.'
               : 'Learning, local tools, local web services, and text-based programs are possible today.'}
           />
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="grid gap-4 sm:gap-5 grid-cols-1 sm:grid-cols-2">
             {applications.map((item) => (
               <Card key={item.id} hover={false}>
                 <div className="flex flex-wrap items-center justify-between gap-2">
-                  <h3 className="text-sm font-semibold text-ink">{pick(item.title, language)}</h3>
+                  <h3 className="text-sm sm:text-base font-semibold text-ink">{pick(item.title, language)}</h3>
                   <StatusPill status={item.status} />
                 </div>
-                <p className="mt-3 flex items-start gap-2 text-xs leading-relaxed text-muted">
+                <p className="mt-3 flex items-start gap-2 text-xs sm:text-sm leading-relaxed text-muted">
                   <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-positive" aria-hidden="true" />
                   {pick(item.now, language)}
                 </p>
@@ -69,7 +69,7 @@ export function FeaturesPage({ onNavigate }) {
           </div>
         </section>
 
-        <section className="border-t border-line py-12">
+        <section className="border-t border-line py-6 sm:py-12">
           <SectionHeading
             eyebrow={language === 'ta' ? 'தொகுப்புகள்' : 'Packages'}
             title={language === 'ta' ? 'இரண்டு அதிகாரப்பூர்வ தொகுப்புகள்' : 'Two official packages'}
@@ -77,24 +77,24 @@ export function FeaturesPage({ onNavigate }) {
               ? 'ஒரு மொழித் தொகுப்பும் ஒரு எடிட்டர் தொகுப்பும் உள்ளன.'
               : 'One language package and one editor package.'}
           />
-          <div className="grid gap-5 md:grid-cols-2">
+          <div className="grid gap-4 sm:gap-6 grid-cols-1 md:grid-cols-2">
             {ecosystem.map((item) => (
               <Card key={item.name}>
                 <div className="flex flex-wrap items-center justify-between gap-2">
-                  <code className="flex items-center gap-2 font-mono text-base font-semibold text-ink">
+                  <code className="flex items-center gap-2 font-mono text-base sm:text-lg font-semibold text-ink">
                     <Package className="h-4 w-4 text-accent" /> {item.name}
                   </code>
                   <Badge variant="outline">v{item.version}</Badge>
                 </div>
                 <p className="mt-2 font-mono text-xs text-accent">{pick(item.role, language)}</p>
-                <p className="mt-3 text-sm leading-relaxed text-muted">{pick(item.detail, language)}</p>
-                <p className="mt-4 font-mono text-[11px] text-faint">{item.license}</p>
+                <p className="mt-3 text-sm sm:text-base leading-relaxed text-muted">{pick(item.detail, language)}</p>
+                <p className="mt-4 font-mono text-xs text-faint">{item.license}</p>
               </Card>
             ))}
           </div>
         </section>
 
-        <section className="border-t border-line py-12">
+        <section className="border-t border-line py-6 sm:py-12">
           <SectionHeading
             eyebrow={language === 'ta' ? 'வரம்புகள்' : 'Boundaries'}
             title={language === 'ta' ? 'தற்போது இல்லாதவை' : 'What is not included'}
@@ -102,35 +102,35 @@ export function FeaturesPage({ onNavigate }) {
               ? 'தவறான எதிர்பார்ப்புகளைத் தவிர்க்க இந்த வரம்புகள் ஆவணப்படுத்தப்பட்டுள்ளன.'
               : 'These limits are documented to avoid false expectations.'}
           />
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="grid gap-4 sm:gap-5 grid-cols-1 sm:grid-cols-2">
             {boundaries.map((item) => (
-              <div key={item.title.en} className="flex gap-3 rounded-lg border border-line bg-panel p-4">
+              <div key={item.title.en} className="flex gap-3 rounded-lg border border-line bg-panel p-4 sm:p-5">
                 <Layers className="mt-0.5 h-4 w-4 shrink-0 text-caution" aria-hidden="true" />
                 <div>
-                  <h3 className="text-xs font-semibold text-ink">{pick(item.title, language)}</h3>
-                  <p className="mt-2 text-xs leading-relaxed text-muted">{pick(item.body, language)}</p>
+                  <h3 className="text-xs sm:text-sm font-semibold text-ink">{pick(item.title, language)}</h3>
+                  <p className="mt-2 text-xs sm:text-sm leading-relaxed text-muted">{pick(item.body, language)}</p>
                 </div>
               </div>
             ))}
           </div>
         </section>
 
-        <section className="border-t border-line py-12">
-          <div className="flex flex-wrap items-center gap-4 rounded-xl border border-line bg-panel p-6">
+        <section className="border-t border-line py-6 sm:py-12">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 sm:gap-6 rounded-xl border border-line bg-panel p-5 sm:p-6">
             <Check className="h-5 w-5 text-accent" aria-hidden="true" />
             <div>
-              <h2 className="text-lg font-semibold text-ink">
+              <h2 className="text-lg sm:text-xl font-semibold text-ink">
                 {language === 'ta' ? 'அம்சங்களைப் பயன்படுத்தத் தொடங்குங்கள்' : 'Put the features to work'}
               </h2>
-              <p className="mt-1 text-xs text-muted">
+              <p className="mt-1 text-xs sm:text-sm text-muted">
                 {language === 'ta' ? 'நிறுவி, உண்மையான எடுத்துக்காட்டுகளுடன் பயிற்சி செய்யுங்கள்.' : 'Install, then practise with verified examples.'}
               </p>
             </div>
-            <div className="ml-auto flex flex-wrap gap-3">
-              <button type="button" onClick={() => onNavigate('install')} className="rounded-lg bg-accent px-4 py-2 text-sm font-semibold text-accent-ink hover:opacity-90">
+            <div className="mt-4 sm:mt-0 flex flex-col sm:flex-row sm:ml-auto gap-3 w-full sm:w-auto">
+              <button type="button" onClick={() => onNavigate('install')} className="w-full sm:w-auto rounded-lg bg-accent px-4 py-2 sm:px-5 sm:py-2.5 text-sm font-semibold text-accent-ink hover:opacity-90">
                 {language === 'ta' ? 'நிறுவுக' : 'Install'}
               </button>
-              <button type="button" onClick={() => onNavigate('examples')} className="inline-flex items-center gap-1.5 rounded-lg border border-line bg-app px-4 py-2 text-sm font-semibold text-ink hover:border-accent/50">
+              <button type="button" onClick={() => onNavigate('examples')} className="inline-flex items-center gap-1.5 w-full sm:w-auto rounded-lg border border-line bg-app px-4 py-2 sm:px-5 sm:py-2.5 text-sm font-semibold text-ink hover:border-accent/50">
                 {language === 'ta' ? 'எடுத்துக்காட்டுகள்' : 'Examples'} <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </button>
             </div>

@@ -24,7 +24,7 @@ const goals = [
     title: L('Clear lessons and references', 'தெளிவான பாடங்களும் குறிப்புகளும்'),
     body: L(
       'Lessons, examples, keyword lists, and module names use the words that appear in real .yaazhi programs.',
-      'பாடங்கள், எடுத்துக்காட்டுகள், சொல் பட்டியல்கள், தொகுதிப் பெயர்கள் உண்மையான .yaazhi நிரல்களில் உள்ள சொற்களைப் பயன்படுத்துகின்றன.',
+      'பாடங்கள், எடுத்துக்காட்டுகள், சொல் பட்டியல்கள், தொகுப்புப் பெயர்கள் உண்மையான .yaazhi நிரல்களில் உள்ள சொற்களைப் பயன்படுத்துகின்றன.',
     ),
   },
   {
@@ -44,7 +44,7 @@ export function AboutPage({ onNavigate }) {
     [L('Version', 'பதிப்பு'), PROJECT_FACTS.version],
     [L('Source file', 'மூலக் கோப்பு'), PROJECT_FACTS.sourceExtension],
     [L('Keywords', 'திறவுச்சொற்கள்'), String(PROJECT_FACTS.keywordCount)],
-    [L('Built-in modules', 'உள்ளமைந்த தொகுதிகள்'), String(PROJECT_FACTS.builtinModuleCount)],
+    [L('Built-in modules', 'உள்ளமைந்த தொகுப்புகள்'), String(PROJECT_FACTS.builtinModuleCount)],
     [L('Verified platform', 'சரிபார்க்கப்பட்ட தளம்'), pick(PROJECT_FACTS.verifiedPlatform, language)],
     [L('Licences', 'உரிமங்கள்'), 'MIT · Apache-2.0'],
   ];
@@ -58,29 +58,29 @@ export function AboutPage({ onNavigate }) {
         badge={<StatusPill status={STATUS.available} />}
       />
 
-      <div className="shell py-10">
+      <div className="shell py-8 sm:py-12 lg:py-16">
         <Breadcrumb items={[{ label: t('nav_about', 'About') }]} onNavigate={onNavigate} />
 
-        <section className="py-6">
-          <div className="grid gap-8 lg:grid-cols-2 lg:items-center">
+        <section className="py-4 sm:py-8">
+          <div className="grid gap-6 sm:gap-8 lg:grid-cols-2 lg:items-center">
             <div>
               <SectionHeading
                 eyebrow={language === 'ta' ? 'நோக்கம்' : 'Mission'}
                 title={language === 'ta' ? 'தொழில்நுட்பம் உங்கள் மொழியில்' : 'Technology in your language'}
               />
-              <p className="text-sm leading-relaxed text-muted">
+              <p className="mt-3 text-sm leading-relaxed text-muted sm:text-base">
                 {language === 'ta'
                   ? 'YaazhiCode ஒரு தமிழ்-அடிப்படையிலான பொது நோக்க நிரலாக்க மொழி. அதன் திறவுச்சொற்கள், ஆவணங்கள், எடுத்துக்காட்டுகள், நோயறிதிகள் அனைத்தும் தமிழ் மையத்தைக் கொண்டுள்ளன.'
                   : 'YaazhiCode is a Tamil-based, general-purpose programming language. Its keywords, documentation, examples, and diagnostics all reflect that Tamil foundation.'}
               </p>
-              <p className="mt-4 text-sm leading-relaxed text-muted">
+              <p className="mt-4 text-sm leading-relaxed text-muted sm:text-base">
                 {language === 'ta'
                   ? 'நீங்கள் .yaazhi கோப்பை எழுதி, அதிகாரப்பூர்வ கட்டளை வரி அல்லது IDE மூலம் உள்ளூரில் இயக்கலாம். தற்போதைய வெளியீடு 0.1.0.'
                   : 'You write a .yaazhi file and run it locally with the official command line or IDE. The current release is 0.1.0.'}
               </p>
             </div>
             <Card hover={false} className="bg-panel">
-              <p className="font-tamil text-2xl font-bold leading-snug text-ink">
+              <p className="font-tamil text-2xl sm:text-3xl font-bold leading-snug text-ink">
                 {pick(BRAND.message, language)}
               </p>
               <p className="mt-4 font-mono text-xs text-faint">YaazhiCode · {PROJECT_FACTS.sourceExtension} · v{PROJECT_FACTS.version}</p>
@@ -88,37 +88,37 @@ export function AboutPage({ onNavigate }) {
           </div>
         </section>
 
-        <section className="border-t border-line py-12">
+        <section className="border-t border-line py-6 sm:py-12">
           <SectionHeading
             eyebrow={language === 'ta' ? 'இலக்குகள்' : 'Goals'}
             title={language === 'ta' ? 'ஏன் இந்த மொழி?' : 'Why this language exists'}
           />
-          <div className="grid gap-5 md:grid-cols-3">
+          <div className="grid gap-5 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
             {goals.map((item) => {
               const Icon = item.icon;
               return (
                 <Card key={item.title.en}>
                   <Icon className="h-5 w-5 text-accent" aria-hidden="true" />
-                  <h3 className="mt-4 text-sm font-semibold text-ink">{pick(item.title, language)}</h3>
-                  <p className="mt-2 text-xs leading-relaxed text-muted">{pick(item.body, language)}</p>
+                  <h3 className="mt-4 text-sm sm:text-base font-semibold text-ink">{pick(item.title, language)}</h3>
+                  <p className="mt-2 text-xs sm:text-sm leading-relaxed text-muted">{pick(item.body, language)}</p>
                 </Card>
               );
             })}
           </div>
         </section>
 
-        <section className="border-t border-line py-12">
-          <div className="grid gap-8 lg:grid-cols-2">
+        <section className="border-t border-line py-6 sm:py-12">
+          <div className="grid gap-6 sm:gap-8 grid-cols-1 lg:grid-cols-2">
             <div>
               <SectionHeading
                 eyebrow={language === 'ta' ? 'உண்மைகள்' : 'Project facts'}
                 title={language === 'ta' ? 'தற்போதைய நிலை' : 'Current release'}
               />
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 xs:grid-cols-2 gap-3 sm:gap-4">
                 {facts.map(([label, value]) => (
-                  <div key={label.en} className="rounded-lg border border-line bg-panel p-4">
-                    <p className="font-mono text-[10px] uppercase tracking-wide text-faint">{pick(label, language)}</p>
-                    <p className="mt-1 font-mono text-sm font-semibold text-ink">{value}</p>
+                  <div key={label.en} className="rounded-lg border border-line bg-panel p-4 sm:p-5">
+                    <p className="font-mono text-xs uppercase tracking-wide text-faint">{pick(label, language)}</p>
+                    <p className="mt-1 font-mono text-sm sm:text-base font-semibold text-ink">{value}</p>
                   </div>
                 ))}
               </div>
@@ -128,7 +128,7 @@ export function AboutPage({ onNavigate }) {
                 eyebrow={language === 'ta' ? 'பொது களஞ்சியம்' : 'Public repository'}
                 title={language === 'ta' ? 'மூலத்தையும் ஆவணங்களையும் காண்க' : 'Find the source and guides'}
               />
-              <p className="text-sm leading-relaxed text-muted">
+              <p className="text-sm leading-relaxed text-muted sm:text-base">
                 {language === 'ta'
                   ? 'மொழி, IDE, ஆவணங்கள், எடுத்துக்காட்டுகள் பொதுவில் உள்ளன. மொழி MIT உரிமையையும் IDE Apache-2.0 உரிமையையும் கொண்டது.'
                   : 'The language, IDE, documentation, and examples are public. The language uses the MIT licence and the IDE uses Apache-2.0.'}
@@ -146,15 +146,17 @@ export function AboutPage({ onNavigate }) {
           </div>
         </section>
 
-        <section className="border-t border-line py-12">
-          <div className="flex flex-wrap items-center gap-4">
-            <Compass className="h-5 w-5 text-accent" />
-            <h2 className="text-lg font-semibold text-ink">{language === 'ta' ? 'இப்போது தொடங்குங்கள்' : 'Begin today'}</h2>
-            <div className="ml-auto flex flex-wrap gap-3">
-              <button type="button" onClick={() => onNavigate('install')} className="rounded-lg bg-accent px-4 py-2 text-sm font-semibold text-accent-ink hover:opacity-90">
+        <section className="border-t border-line py-6 sm:py-12">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 rounded-xl border border-line bg-panel p-4 sm:p-6">
+            <div className="flex items-center gap-3">
+              <Compass className="h-5 w-5 shrink-0 text-accent" />
+              <h2 className="text-lg sm:text-xl font-semibold text-ink">{language === 'ta' ? 'இப்போது தொடங்குங்கள்' : 'Begin today'}</h2>
+            </div>
+            <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
+              <button type="button" onClick={() => onNavigate('install')} className="w-full sm:w-auto rounded-lg bg-accent px-4 py-2 sm:px-5 sm:py-2.5 text-sm font-semibold text-accent-ink hover:opacity-90 min-h-[44px]">
                 {t('view_install', 'View install guide')}
               </button>
-              <button type="button" onClick={() => onNavigate('learn', 'introduction')} className="rounded-lg border border-line bg-panel px-4 py-2 text-sm font-semibold text-ink hover:border-accent/50">
+              <button type="button" onClick={() => onNavigate('learn', 'introduction')} className="w-full sm:w-auto rounded-lg border border-line bg-panel px-4 py-2 sm:px-5 sm:py-2.5 text-sm font-semibold text-ink hover:border-accent/50 min-h-[44px]">
                 {language === 'ta' ? 'கற்கத் தொடங்கு' : 'Start learning'}
               </button>
             </div>

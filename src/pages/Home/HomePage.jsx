@@ -23,7 +23,7 @@ const whyPoints = [
     title: L('Learn the core ideas', 'அடிப்படைக் கருத்துகளைக் கற்க'),
     body: L(
       'Values, conditions, loops, functions, lists, objects, modules, and errors are all part of the lessons.',
-      'மதிப்புகள், நிபந்தனைகள், சுழற்சிகள், செயல்கள், பட்டியல்கள், பொருள்கள், தொகுதிகள், பிழைகள் ஆகியவை பாடங்களில் உள்ளன.',
+      'மதிப்புகள், நிபந்தனைகள், சுழற்சிகள், செயல்கள், பட்டியல்கள், பொருள்கள், தொகுப்புகள், பிழைகள் ஆகியவை பாடங்களில் உள்ளன.',
     ),
   },
   {
@@ -45,7 +45,7 @@ const concepts = [
   ['செயல்கள்', 'Functions'],
   ['பட்டியல்கள்', 'Arrays'],
   ['பொருள்கள்', 'Objects'],
-  ['தொகுதிகள்', 'Modules'],
+  ['தொகுப்புகள்', 'Modules'],
   ['பிழை கையாளுதல்', 'Error handling'],
   ['கோப்புகள்', 'Files'],
 ];
@@ -75,74 +75,74 @@ export function HomePage({ onNavigate }) {
     <>
       <section className="relative overflow-hidden border-b border-line">
         <div className="subtle-grid pointer-events-none absolute inset-0 opacity-40" aria-hidden="true" />
-        <div className="shell relative grid gap-12 py-16 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:py-24">
-          <div>
-            <div className="flex flex-wrap items-center gap-3">
-              <BrandLogo className="h-11 w-11 sm:h-12 sm:w-12" />
+        <div className="shell relative grid gap-8 sm:gap-12 py-10 sm:py-16 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:py-20 lg:gap-12 xl:gap-16">
+          <div className="flex flex-col gap-5 sm:gap-6 min-w-0">
+            <div className="flex flex-wrap items-center gap-2.5 sm:gap-3">
+              <BrandLogo className="h-9 w-9 sm:h-12 sm:w-12" />
               <StatusPill status={STATUS.available} />
               <Badge variant="accent">v{PROJECT_FACTS.version}</Badge>
             </div>
-            <h1 className="mt-6 font-tamil text-4xl font-bold leading-tight tracking-tight text-ink sm:text-5xl lg:text-6xl">
+            <h1 className="mt-2 font-tamil text-3xl font-bold leading-tight tracking-tight text-ink sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl">
               {pick(BRAND.heroTitle, language)}
             </h1>
-            <p className="mt-5 max-w-xl text-base leading-relaxed text-muted sm:text-lg">
+            <p className="mt-2 max-w-xl text-sm leading-relaxed text-muted sm:text-base lg:text-lg">
               {pick(BRAND.heroLead, language)}
             </p>
-            <p className="mt-4 font-tamil text-sm font-medium text-accent">
+            <p className="mt-2 font-tamil text-sm font-medium text-accent">
               {pick(BRAND.message, language)}
             </p>
 
-            <div className="mt-8 flex flex-wrap gap-3">
+            <div className="mt-4 flex flex-col sm:flex-row sm:flex-wrap gap-3 w-full">
               <button
                 type="button"
                 onClick={() => onNavigate('learn', 'introduction')}
-                className="inline-flex items-center gap-2 rounded-lg bg-accent px-5 py-3 text-sm font-semibold text-accent-ink transition-opacity hover:opacity-90"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-lg bg-accent px-5 py-3 text-sm font-semibold text-accent-ink transition-opacity hover:opacity-90 min-h-[44px]"
               >
                 {t('nav_get_started', 'Get Started')} <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </button>
               <button
                 type="button"
                 onClick={() => onNavigate('install')}
-                className="inline-flex items-center gap-2 rounded-lg border border-line bg-panel px-5 py-3 text-sm font-semibold text-ink transition-colors hover:border-accent/50"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-lg border border-line bg-panel px-5 py-3 text-sm font-semibold text-ink transition-colors hover:border-accent/50 min-h-[44px]"
               >
                 {t('cta_install', 'Install YaazhiCode')}
               </button>
               <button
                 type="button"
                 onClick={() => onNavigate('language')}
-                className="inline-flex items-center gap-2 rounded-lg border border-line bg-panel px-5 py-3 text-sm font-semibold text-ink transition-colors hover:border-accent/50"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-lg border border-line bg-panel px-5 py-3 text-sm font-semibold text-ink transition-colors hover:border-accent/50 min-h-[44px]"
               >
                 <BookOpen className="h-4 w-4" aria-hidden="true" /> {t('cta_explore_language', 'Explore Language')}
               </button>
             </div>
 
-            <p className="mt-6 font-mono text-xs text-faint">
-              {PROJECT_FACTS.sourceExtension} · {PROJECT_FACTS.keywordCount} {language === 'ta' ? 'திறவுச்சொற்கள்' : 'keywords'} · {PROJECT_FACTS.builtinModuleCount} {language === 'ta' ? 'தொகுதிகள்' : 'built-in modules'}
+            <p className="mt-4 font-mono text-xs text-faint">
+              {PROJECT_FACTS.sourceExtension} · {PROJECT_FACTS.keywordCount} {language === 'ta' ? 'திறவுச்சொற்கள்' : 'keywords'} · {PROJECT_FACTS.builtinModuleCount} {language === 'ta' ? 'தொகுப்புகள்' : 'built-in modules'}
             </p>
           </div>
 
-          <div className="space-y-4">
+          <div className="min-w-0 space-y-4">
             <div className="overflow-hidden rounded-xl border border-line bg-panel shadow-sm">
-              <div className="flex items-center gap-2 border-b border-line bg-raised px-4 py-2.5">
-                <BrandLogo className="h-5 w-5" decorative />
-                <span className="font-mono text-xs font-medium text-ink">சேவகன்.yaazhi</span>
-                <span className="ml-auto font-mono text-[10px] text-faint">
+              <div className="flex items-center gap-2 border-b border-line bg-raised px-4 py-2.5 sm:px-6 sm:py-3">
+                <BrandLogo className="h-4 w-4 sm:h-5 sm:w-5" decorative />
+                <span className="font-mono text-xs sm:text-sm font-medium text-ink">சேவகன்.yaazhi</span>
+                <span className="ml-auto font-mono text-xs text-faint">
                   {language === 'ta' ? 'சேவகன் முன்னோட்டம்' : 'Server preview'}
                 </span>
               </div>
               <CodeBlock code={SERVER_CODE} language="tamil" filename="சேவகன்.yaazhi" showCopy={false} className="my-0 rounded-none border-0" />
-              <div className="border-t border-line bg-app px-4 py-3">
-                <div className="mb-1 flex items-center gap-2 font-mono text-[10px] uppercase tracking-wide text-faint">
+              <div className="border-t border-line bg-app px-4 py-3 sm:px-6 sm:py-4">
+                <div className="mb-1 flex items-center gap-2 font-mono text-xs uppercase tracking-wide text-faint">
                   <Terminal className="h-3 w-3" aria-hidden="true" /> yaazhicode run
                 </div>
-                <pre className="whitespace-pre-wrap font-mono text-xs leading-5 text-muted">{OUTPUT_SERVER}</pre>
-                <div className="mt-2 flex items-center gap-2 border-t border-line pt-2 font-mono text-[10px] uppercase tracking-wide text-faint">
+                <pre className="whitespace-pre-wrap font-mono text-xs sm:text-sm leading-5 sm:leading-6 text-muted overflow-x-auto">{OUTPUT_SERVER}</pre>
+                <div className="mt-2 flex items-center gap-2 border-t border-line pt-2 font-mono text-xs uppercase tracking-wide text-faint">
                   {language === 'ta' ? 'பதில்' : 'Response'} <span className="text-accent">GET /</span>
                 </div>
-                <pre className="whitespace-pre-wrap font-mono text-xs leading-5 text-ink">{SERVER_RESPONSE}</pre>
+                <pre className="whitespace-pre-wrap font-mono text-xs sm:text-sm leading-5 sm:leading-6 text-ink overflow-x-auto">{SERVER_RESPONSE}</pre>
               </div>
             </div>
-            <p className="text-center text-xs text-faint">
+            <p className="text-center text-xs text-faint sm:text-sm">
               {language === 'ta'
                 ? 'இந்த நிரல் அதிகாரப்பூர்வ YaazhiCode HTTP உதாரணத்திலிருந்து எடுக்கப்பட்டது.'
                 : 'This program follows the official YaazhiCode HTTP example.'}
@@ -152,25 +152,25 @@ export function HomePage({ onNavigate }) {
       </section>
 
       <section className="border-b border-line bg-panel">
-        <div className="shell grid gap-4 py-8 sm:grid-cols-3">
+        <div className="shell grid gap-4 py-6 sm:py-10 sm:grid-cols-3 lg:grid-cols-3">
           {[
             { step: '01', label: L('Install the CLI', 'கட்டளை வரியை நிறுவு'), code: '# install guide →' },
             { step: '02', label: L('Write a .yaazhi file', '.yaazhi கோப்பை எழுது'), code: 'சேவகன்.yaazhi' },
             { step: '03', label: L('Run it locally', 'உள்ளூரில் இயக்கு'), code: 'yaazhicode run ".\\சேவகன்.yaazhi"' },
           ].map((item) => (
-            <div key={item.step} className="flex items-start gap-3">
-              <span className="font-mono text-xs font-semibold text-accent">{item.step}</span>
+            <div key={item.step} className="flex items-start gap-3 sm:gap-4">
+              <span className="font-mono text-xs sm:text-sm font-semibold text-accent">{item.step}</span>
               <div className="min-w-0">
-                <p className="text-xs font-medium text-ink">{pick(item.label, language)}</p>
-                <code className="mt-1 block truncate font-mono text-xs text-muted">{item.code}</code>
+                <p className="text-xs sm:text-sm font-medium text-ink">{pick(item.label, language)}</p>
+                <code className="mt-1 block truncate font-mono text-xs sm:text-sm text-muted">{item.code}</code>
               </div>
             </div>
           ))}
         </div>
       </section>
 
-      <section className="shell py-16 sm:py-20">
-        <div className="mb-10 max-w-2xl">
+      <section className="shell py-12 sm:py-16 lg:py-20">
+        <div className="mb-8 sm:mb-12 max-w-2xl">
           <Eyebrow>{language === 'ta' ? 'YaazhiCode என்றால் என்ன?' : 'What is YaazhiCode?'}</Eyebrow>
           <h2 className="mt-2 text-2xl font-bold tracking-tight text-ink sm:text-3xl">
             {language === 'ta' ? 'தமிழில் எழுதப்படும் நிரலாக்க மொழி' : 'A programming language written in Tamil'}
@@ -181,13 +181,13 @@ export function HomePage({ onNavigate }) {
               : 'YaazhiCode is a general-purpose language for writing programs with Tamil words. You create .yaazhi files and run them locally with the official tools.'}
           </p>
         </div>
-        <div className="grid gap-5 md:grid-cols-3">
+        <div className="grid gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           {whyPoints.map((point) => {
             const Icon = point.icon;
             return (
-              <div key={point.title.en} className="rounded-xl border border-line bg-panel p-5">
+              <div key={point.title.en} className="rounded-xl border border-line bg-panel p-5 sm:p-6">
                 <Icon className="h-5 w-5 text-accent" aria-hidden="true" />
-                <h3 className="mt-4 text-sm font-semibold text-ink">{pick(point.title, language)}</h3>
+                <h3 className="mt-4 text-sm sm:text-base font-semibold text-ink">{pick(point.title, language)}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-muted">{pick(point.body, language)}</p>
               </div>
             );
@@ -196,7 +196,7 @@ export function HomePage({ onNavigate }) {
       </section>
 
       <section className="border-y border-line bg-panel">
-        <div className="shell grid gap-10 py-16 sm:py-20 lg:grid-cols-2">
+        <div className="shell grid gap-6 sm:gap-10 py-12 sm:py-16 lg:py-20 lg:grid-cols-2">
           <div>
             <Eyebrow>{language === 'ta' ? 'முதல் சேவகன்' : 'Your first server'}</Eyebrow>
             <h2 className="mt-2 text-2xl font-bold tracking-tight text-ink sm:text-3xl">
@@ -237,8 +237,8 @@ export function HomePage({ onNavigate }) {
         </div>
       </section>
 
-      <section className="shell py-16 sm:py-20">
-        <div className="mb-10 max-w-2xl">
+      <section className="shell py-12 sm:py-16 lg:py-20">
+        <div className="mb-8 sm:mb-12 max-w-2xl">
           <Eyebrow>{language === 'ta' ? 'அதிகாரப்பூர்வ IDE' : 'Official IDE'}</Eyebrow>
           <h2 className="mt-2 text-2xl font-bold tracking-tight text-ink sm:text-3xl">
             {language === 'ta' ? 'எழுத்து முதல் வெளியீடு வரை' : 'From writing code to seeing output'}
@@ -249,23 +249,23 @@ export function HomePage({ onNavigate }) {
               : 'The YaazhiCode IDE creates projects, edits .yaazhi files, runs them locally, and shows output and diagnostics.'}
           </p>
         </div>
-        <div className="grid gap-5 sm:grid-cols-2">
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-2">
           {[
             [L('Create or open a project', 'திட்டத்தை உருவாக்கு அல்லது திற'), ''],
             [L('Create files in Explorer', 'Explorer-ல் கோப்புகளை உருவாக்கு'), ''],
             [L('Write and run Tamil code', 'தமிழ் குறியீட்டை எழுதி இயக்கு'), ''],
             [L('View output and diagnostics', 'வெளியீட்டையும் நோயறிதிகளையும் காண்'), ''],
           ].map(([title]) => (
-            <div key={title.en} className="flex items-center gap-3 rounded-lg border border-line bg-panel p-4">
+            <div key={title.en} className="flex items-center gap-3 rounded-lg border border-line bg-panel p-4 sm:p-5">
               <span className="h-2 w-2 rounded-full bg-accent" aria-hidden="true" />
-              <span className="text-sm text-ink">{pick(title, language)}</span>
+              <span className="text-sm sm:text-base text-ink">{pick(title, language)}</span>
             </div>
           ))}
         </div>
       </section>
 
       <section className="border-t border-line bg-panel">
-        <div className="shell grid gap-10 py-16 sm:py-20 lg:grid-cols-2">
+        <div className="shell grid gap-6 sm:gap-10 py-12 sm:py-16 lg:py-20 lg:grid-cols-2">
           <div>
             <Eyebrow>{language === 'ta' ? 'இன்று உருவாக்கலாம்' : 'What you can build today'}</Eyebrow>
             <h2 className="mt-2 text-2xl font-bold tracking-tight text-ink sm:text-3xl">
@@ -278,15 +278,15 @@ export function HomePage({ onNavigate }) {
                   <div key={item.title.en} className="flex items-start gap-3">
                     <Icon className="mt-0.5 h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
                     <div>
-                      <h3 className="text-sm font-semibold text-ink">{pick(item.title, language)}</h3>
-                      <p className="mt-1 text-xs leading-relaxed text-muted">{pick(item.body, language)}</p>
+                      <h3 className="text-sm sm:text-base font-semibold text-ink">{pick(item.title, language)}</h3>
+                      <p className="mt-1 text-xs sm:text-sm leading-relaxed text-muted">{pick(item.body, language)}</p>
                     </div>
                   </div>
                 );
               })}
             </div>
           </div>
-          <div className="rounded-xl border border-line bg-app p-6">
+          <div className="rounded-xl border border-line bg-app p-5 sm:p-6">
             <Eyebrow>{language === 'ta' ? 'அடுத்தது' : 'What is next'}</Eyebrow>
             <h2 className="mt-2 text-xl font-semibold text-ink">
               {language === 'ta' ? 'வெளியிடப்பட்டது என்ன? எது சாத்தியம்?' : 'What is available and what is possible?'}

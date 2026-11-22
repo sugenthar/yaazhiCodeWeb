@@ -67,7 +67,7 @@ export function SearchDialog({ isOpen, onClose, onNavigate }) {
 
   return (
     <div
-      className="animate-fade-in fixed inset-0 z-50 flex items-start justify-center bg-app/85 px-3 pt-16 backdrop-blur-sm sm:px-4 sm:pt-20"
+      className="animate-fade-in fixed inset-0 z-50 flex items-start justify-center bg-app/85 px-3 pt-8 backdrop-blur-sm sm:px-4 sm:pt-20"
       onClick={onClose}
       role="presentation"
     >
@@ -95,11 +95,11 @@ export function SearchDialog({ isOpen, onClose, onNavigate }) {
               <X className="h-4 w-4" />
             </button>
           ) : (
-            <kbd className="hidden rounded border border-line bg-panel px-1.5 py-0.5 font-mono text-[10px] text-faint sm:inline-flex">ESC</kbd>
+            <kbd className="hidden rounded border border-line bg-panel px-1.5 py-0.5 font-mono text-xs text-faint sm:inline-flex">ESC</kbd>
           )}
         </div>
 
-        <div className="max-h-[380px] overflow-y-auto p-2">
+        <div className="max-h-[60vh] sm:max-h-[380px] overflow-y-auto p-2">
           {query && results.length === 0 ? (
             <div className="py-12 text-center text-sm text-faint">{t('search_no_results', 'No matching results found')}</div>
           ) : (
@@ -120,7 +120,7 @@ export function SearchDialog({ isOpen, onClose, onNavigate }) {
                     <div className="mt-0.5 rounded-md border border-line bg-app p-1.5">{typeIcon(item.type)}</div>
                     <div className="min-w-0 flex-1">
                       <div className="flex items-center gap-2">
-                        <span className="rounded bg-raised px-1.5 py-0.5 font-mono text-[10px] uppercase tracking-wide text-faint">
+                        <span className="rounded bg-raised px-1.5 py-0.5 font-mono text-xs uppercase tracking-wide text-faint">
                           {pick(item.typeLabel, language)}
                         </span>
                         <span className="truncate text-sm font-medium text-ink">{pick(item.title, language)}</span>
@@ -135,7 +135,7 @@ export function SearchDialog({ isOpen, onClose, onNavigate }) {
           )}
         </div>
 
-        <div className="flex items-center justify-between border-t border-line bg-raised px-4 py-2.5 font-mono text-[11px] text-faint">
+        <div className="flex items-center justify-between border-t border-line bg-raised px-4 py-2.5 font-mono text-xs text-faint">
           <div className="flex items-center gap-3">
             <span>↑↓ {t('search_navigate', 'Navigate')}</span>
             <span>↵ {t('search_open', 'Open')}</span>

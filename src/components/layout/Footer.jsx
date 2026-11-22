@@ -41,17 +41,17 @@ export function Footer({ onNavigate }) {
   ];
 
   return (
-    <footer className="w-full border-t border-line bg-panel py-12 text-sm text-muted">
+    <footer className="w-full border-t border-line bg-panel py-10 sm:py-16 text-sm text-muted">
       <div className="shell">
-        <div className="grid grid-cols-1 gap-8 pb-10 sm:grid-cols-2 md:grid-cols-4 md:gap-10">
+        <div className="grid grid-cols-1 gap-8 pb-8 sm:pb-10 sm:grid-cols-2 md:grid-cols-4 md:gap-8 lg:gap-10">
           <div className="space-y-4 sm:col-span-2 md:col-span-1">
             <div className="flex items-center gap-2.5">
-              <BrandLogo className="h-7 w-7" decorative />
-              <span className="font-mono text-base font-bold tracking-tight text-ink">YaazhiCode</span>
+              <BrandLogo className="h-6 w-6 sm:h-7 sm:w-7" decorative />
+              <span className="font-mono text-sm font-bold tracking-tight text-ink sm:text-base">YaazhiCode</span>
             </div>
             <p className="max-w-sm text-xs leading-relaxed text-muted">{label(BRAND.tagline)}</p>
             <p className="max-w-sm text-xs leading-relaxed text-faint">{label(BRAND.message)}</p>
-            <div className="font-mono text-[11px] text-faint">
+            <div className="font-mono text-xs text-faint">
               {PROJECT_FACTS.languageLicense} {language === 'ta' ? 'மொழி' : 'language'} · {PROJECT_FACTS.ideLicense} IDE · v{PROJECT_FACTS.version}
             </div>
           </div>
@@ -67,7 +67,7 @@ export function Footer({ onNavigate }) {
                         href={link.href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className={`transition-colors hover:text-accent ${link.mono ? 'font-mono' : ''}`}
+                        className={`inline-block py-0.5 transition-colors hover:text-accent ${link.mono ? 'font-mono' : ''}`}
                       >
                         {link.label}
                       </a>
@@ -75,7 +75,7 @@ export function Footer({ onNavigate }) {
                       <button
                         type="button"
                         onClick={() => onNavigate?.(link.page, link.id || null)}
-                        className="text-left transition-colors hover:text-accent"
+                        className="inline-block py-0.5 text-left transition-colors hover:text-accent"
                       >
                         {link.label}
                       </button>
@@ -87,15 +87,15 @@ export function Footer({ onNavigate }) {
           ))}
         </div>
 
-        <div className="flex flex-col items-center justify-between gap-4 border-t border-line pt-6 text-xs text-faint sm:flex-row">
-          <p>© {new Date().getFullYear()} YaazhiCode. {language === 'ta' ? 'தமிழில் நிரலாக்கம்.' : 'Programming in Tamil.'}</p>
-          <div className="flex items-center gap-4 font-mono text-[11px]">
+        <div className="flex flex-col items-center justify-between gap-4 border-t border-line pt-6 text-xs text-faint sm:flex-row sm:pt-8">
+          <p className="text-center sm:text-left">© {new Date().getFullYear()} YaazhiCode. {language === 'ta' ? 'தமிழில் நிரலாக்கம்.' : 'Programming in Tamil.'}</p>
+          <div className="flex flex-wrap items-center justify-center gap-4 font-mono text-xs">
             <span className="font-tamil">{label(BRAND.tagline)}</span>
             <a
               href={LINKS.repository}
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-accent"
+              className="p-1 hover:text-accent"
               aria-label={`${translate('github', 'GitHub')} — ${translate('open_in_new', 'Opens in a new tab')}`}
             >
               <GithubIcon className="h-4 w-4" />
